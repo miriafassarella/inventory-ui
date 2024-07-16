@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from './security/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,4 +10,14 @@ import { FormControl } from '@angular/forms';
 })
 export class AppComponent {
   title = 'inventory-ui';
+
+  usuariologado : string = '';
+  constructor(private router: Router, private auth: AuthService){
+
+  }
+  displayNavbar() {
+    return this.router.url !== '/login';
+  }
+
+
 }

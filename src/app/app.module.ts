@@ -13,6 +13,12 @@ import {HttpClientModule} from '@angular/common/http';
 import { ErrorHandlerService } from './error-handler.service';
 import { MessageService } from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
+import {TableModule} from 'primeng/table';
+import { ProductService } from './home/product.service';
+
+import {MenubarModule} from 'primeng/menubar';
+
+
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent},
@@ -20,10 +26,12 @@ const routes: Routes = [
 
   ];
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    HomeComponent
+
 
 ],
   imports: [
@@ -33,9 +41,15 @@ const routes: Routes = [
     SecurityRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    ToastModule
+    ToastModule,
+    TableModule,
+    MenubarModule
+
+
+
 ],
-providers: [ErrorHandlerService, MessageService, ErrorHandlerService],
+
+providers: [ErrorHandlerService, MessageService,ProductService],
 bootstrap: [AppComponent]
 })
 export class AppModule { }

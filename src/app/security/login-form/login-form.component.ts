@@ -1,4 +1,5 @@
 
+
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ErrorHandlerService } from 'src/app/error-handler.service';
@@ -25,7 +26,9 @@ export class LoginFormComponent implements OnInit {
 login(usuario: string, senha: string){
   this.auth.login(usuario, senha)
   .then(()=>{
+
     this.router.navigate(['/home']);
+
   })
   .catch(erro => {
     this.errorHandler.handle(erro);
