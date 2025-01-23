@@ -4,20 +4,32 @@
   <form autocomplete="off" #loginForm="ngForm">
       <div class="grid p-fluid">
         <div class="col-12">
-          <h1>Login</h1>
+        <div>
+
         </div>
+      </div>
         <div class="col-12">
           <span class="p-float-label">
           <input pInputText type="email" name="user" id="inputtext" ngModel required #user>
           <label for="inputtext">Email</label>
         </span>
         </div>
-        <div class="col-12">
+        <div class="col-12 input">
           <span class="p-float-label">
           <input pInputText type="password" name="password" id="inputtext" ngModel required #password>
           <label for="inputtext">Password</label>
           </span>
         </div>
+        <div class="col-12 passcheck">
+        <div class="field-checkbox">
+          <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+          <label for="binary">Mémoriser</label>
+        </div>
+        <div class="link">
+          <a href="">Mot de passe oublié?</a>
+        </div>
+        </div>
+
         <div class="col-12">
           <button pButton type="submit" label="Login" [disabled]="loginForm.invalid"
             (click)="login(user.value, password.value); password.value=''">

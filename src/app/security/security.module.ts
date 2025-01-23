@@ -12,7 +12,7 @@ import {FormsModule, NgForm} from '@angular/forms';
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InventoryHttpInterceptor } from './inventory-http-interceptor';
-
+import {CheckboxModule} from 'primeng/checkbox';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token')!;
@@ -28,6 +28,7 @@ export function tokenGetter(): string {
     ButtonModule,
     CardModule,
     FormsModule,
+    CheckboxModule,
     RouterModule,
     JwtModule.forRoot({
       config: {

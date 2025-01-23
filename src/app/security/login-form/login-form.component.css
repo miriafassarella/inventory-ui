@@ -11,14 +11,31 @@
 .grid{
 
   background-color: white;
-  width: 20rem;
-  height: 20rem;
-
+  width: 22rem;
+  height: 18rem;
+  padding: 5px;
   border-radius: 5px;
 
 
 }
-h1{
-  color: #64646b;
+button{
+  background-color: #191970;
 }
 
+.passcheck{
+  display: flex;
+  justify-content: space-between;
+}
+h2{
+  color: #64646b;
+}
+.link{
+  margin-top: 6px;
+}
+a{
+
+  text-decoration: none;
+}
+col-12,h2{
+  text-align: left;
+}

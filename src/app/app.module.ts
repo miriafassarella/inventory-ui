@@ -57,7 +57,8 @@ const routes: Routes = [
     PasswordModule,
     ButtonModule,
     InputTextModule,
-    CardModule
+    CardModule,
+
 
 ],
 
