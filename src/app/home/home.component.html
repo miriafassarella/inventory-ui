@@ -1,0 +1,29 @@
+<div class="container-home">
+<div class="grid table">
+  <div class="col-12 p-fluid p-body">
+    <p-table [value]="products" [paginator]="true" [rows]="filter.itemsPage"
+    [lazy]="true" [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
+
+      <ng-template pTemplate="header">
+        <tr>
+            <th>Modèle</th>
+            <th>Nom du produit</th>
+            <th class="col-data-header">Numéro de série</th>
+            <th class="col-data-header">Enseignant</th>
+            <th class="col-valor-header">Établissement</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>{{ product.model }}</td>
+            <td>{{ product.nproduct }}</td>
+            <td class="col-data-content">{{ product.nserie }}</td>
+            <td class="col-data-content">{{ product.professional.name }}</td>
+            <td class="col-valor-content">{{ product.establishment.name }}</td>
+        </tr>
+    </ng-template>
+
+    </p-table>
+  </div>
+</div>
+</div>
