@@ -1,12 +1,19 @@
-<p-menubar [model]="items">
+
+
+
+<p-menubar>
   <ng-template pTemplate="start">
-    <div class="grid menu">
-      <div class="col-2 icon">
-        <i class="pi pi-user" style="font-size: 1.5rem"></i>
-      </div>
-      <div class="col-10">
-        <h2>{{usuarioLogado}}</h2>
-      </div>
+    <img src="assets/logo.png" alt="Logo" class="menu-logo" />
+
+    <span>Inventaire</span>
+  </ng-template>
+
+
+  <ng-template pTemplate="end">
+    <div class="flex items-center gap-2">
+      <button pButton label="{{usuarioLogado}}" icon="pi pi-user" class="p-button-text"></button>
+      <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="p-button-text"></button>
     </div>
   </ng-template>
 </p-menubar>
+

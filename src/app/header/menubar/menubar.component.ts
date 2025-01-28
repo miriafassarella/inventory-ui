@@ -26,7 +26,7 @@ export class MenubarComponent implements OnInit {
     this.items = [
 
       {
-        label: 'Quit',
+        label: 'Déconnexion',
         icon:'pi pi-fw pi-power-off',
         command : ()=> this.logout()
       }
