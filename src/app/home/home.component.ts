@@ -5,6 +5,7 @@ import { AuthService } from '../security/auth.service';
 import { LazyLoadEvent } from 'primeng/api';
 import { ErrorHandlerService } from '../error-handler.service';
 import { Router } from '@angular/router';
+import { Sector } from '../core/model';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit{
 totalRegisters = 0;
 filter = new ProductsFilter();
 products = [];
-
+sectors = [];
 
 
 
@@ -28,7 +29,7 @@ constructor(private productService : ProductService,
 }
 
 ngOnInit(): void {
-
+  this.listSectors();
 }
 
 
@@ -49,6 +50,11 @@ whenChangingPage(event : LazyLoadEvent){
 
 }
 
-
+listSectors(){
+  this.productService.listSectors()
+  .then( result => {
+    this.sectors = result.map((e:any)=> ({name: e.name, id: e.id}));
+  })
+}
 
 }

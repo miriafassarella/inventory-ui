@@ -2,18 +2,20 @@
 
 
 <p-menubar>
+
   <ng-template pTemplate="start">
     <img src="assets/logo.png" alt="Logo" class="menu-logo" />
 
     <span>Inventaire</span>
-  </ng-template>
-
-
-  <ng-template pTemplate="end">
+    </ng-template>
+<ng-template pTemplate="end">
     <div class="flex items-center gap-2">
-      <button pButton label="{{usuarioLogado}}" icon="pi pi-user" class="p-button-text"></button>
+      <p pButton label="{{usuarioLogado}}" icon="pi pi-user" class="p-button-text"><p>
       <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="p-button-text"></button>
     </div>
   </ng-template>
 </p-menubar>
+
+
+
 

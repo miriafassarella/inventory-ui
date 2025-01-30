@@ -15,7 +15,10 @@ import { ErrorHandlerService } from './error-handler.service';
 import { ProductService } from './home/product.service';
 
 
+import { FormsModule } from '@angular/forms';
 
+
+import { DropdownModule } from 'primeng/dropdown';
 import { MessageService, MenuItem } from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
 import {TableModule} from 'primeng/table';
@@ -24,7 +27,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import {MenubarModule} from 'primeng/menubar';
 import { MenubarComponent } from './header/menubar/menubar.component';
-
+import { ToolbarModule } from 'primeng/toolbar';
 import {CardModule} from 'primeng/card';
 
 
@@ -58,7 +61,9 @@ const routes: Routes = [
     ButtonModule,
     InputTextModule,
     CardModule,
-
+    ToolbarModule,
+    DropdownModule,
+    FormsModule
 
 ],
 

@@ -1,4 +1,14 @@
 <div class="container-home">
+
+  <p-toolbar>
+    <p-button label="Normal" icon="pi pi-plus"></p-button>
+    <div>
+      <p-dropdown optionLabel="name" [options]="this.sectors" placeholder="Secteur"></p-dropdown>
+      <p-dropdown placeholder="Établissement"></p-dropdown>
+    </div>
+    <div>3</div>
+  </p-toolbar>
+
 <div class="grid table">
   <div class="col-12 p-fluid p-body">
     <p-table [value]="products" [paginator]="true" [rows]="filter.itemsPage"
@@ -26,4 +36,6 @@
     </p-table>
   </div>
 </div>
+
+
 </div>
