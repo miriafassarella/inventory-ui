@@ -1,12 +1,13 @@
 <div class="container-home">
 
   <p-toolbar>
-    <p-button label="Normal" icon="pi pi-plus"></p-button>
-    <div>
-      <p-dropdown optionLabel="name" [options]="this.sectors" placeholder="Secteur"></p-dropdown>
-      <p-dropdown placeholder="Établissement"></p-dropdown>
+    <button pButton label="Normal" icon="pi pi-plus"></button>
+    <div class="dropdown">
+      <p-dropdown class="menuDrop" optionValue="id" optionLabel="name" [options]="sectors" [(ngModel)]="establishmentsSelected"
+      name="establishmentsSelected" (onChange)="listEstablishments()" placeholder="Secteur"></p-dropdown>
+      <p-dropdown class="menuDrop" optionValue="id" optionLabel="name" [options]="establishments" placeholder="Établissement"></p-dropdown>
     </div>
-    <div>3</div>
+    <div>333333</div>
   </p-toolbar>
 
 <div class="grid table">
@@ -25,9 +26,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-            <td>{{ product.model }}</td>
-            <td>{{ product.nproduct }}</td>
-            <td class="col-data-content">{{ product.nserie }}</td>
+            <td>{{ product.model.name }}</td>
+            <td>{{ product.name }}</td>
+            <td class="col-data-content">{{ product.serialNumber }}</td>
             <td class="col-data-content">{{ product.professional.name }}</td>
             <td class="col-valor-content">{{ product.establishment.name }}</td>
         </tr>

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
+import { Establishment, Sector } from '../core/model';
 
 
 export class ProductsFilter{
@@ -17,6 +18,7 @@ export class ProductService {
 
   productsUrl= 'http://localhost:8080/products';
   sectorsUrl= 'http://localhost:8080/sectors';
+  establishmentsUrl= 'http://localhost:8080/establishments';
 
   constructor(private http : HttpClient) { }
 
@@ -40,8 +42,17 @@ export class ProductService {
 
 listSectors() :Promise<any>{
 
-  let params = new HttpParams();
-  return this.http.get(`${this.sectorsUrl}`, {params})
+  const params = new HttpParams();
+  return this.http.get<Sector[]>(`${this.sectorsUrl}`, {params})
     .toPromise();
      }
+
+     listEstablishments(sectorId: number) : Promise<any>{
+      const params = new HttpParams()
+      .set('sector', sectorId);
+      return this.http.get<Establishment[]>(this.establishmentsUrl, {params})
+      .toPromise();
+     }
 }
+
+

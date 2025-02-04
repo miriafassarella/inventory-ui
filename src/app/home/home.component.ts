@@ -19,6 +19,9 @@ filter = new ProductsFilter();
 products = [];
 sectors = [];
 
+establishments = [];
+establishmentsSelected?: number;
+
 
 
 constructor(private productService : ProductService,
@@ -53,8 +56,14 @@ whenChangingPage(event : LazyLoadEvent){
 listSectors(){
   this.productService.listSectors()
   .then( result => {
-    this.sectors = result.map((e:any)=> ({name: e.name, id: e.id}));
+    this.sectors = result.map((s:any)=> ({name: s.name, id: s.id}));
   })
 }
 
+listEstablishments(){
+  this.productService.listEstablishments(this.establishmentsSelected!)
+  .then(establishments => {
+    this.establishments = establishments.map((e:any)=> ({name: e.name, id: e.id}));
+  })
+}
 }

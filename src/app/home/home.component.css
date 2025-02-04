@@ -8,10 +8,11 @@
 
 }
 button{
-  height: 30px;
-  width: 70px;
+  background-color: 	#191970;
 }
-
+button:hover{
+  background-color: #191970 !important;
+}
 
 
 
