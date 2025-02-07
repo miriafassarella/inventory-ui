@@ -15,6 +15,7 @@ import { ErrorHandlerService } from './error-handler.service';
 import { ProductService } from './home/product.service';
 
 
+
 import { FormsModule } from '@angular/forms';
 
 
@@ -29,6 +30,9 @@ import {MenubarModule} from 'primeng/menubar';
 import { MenubarComponent } from './header/menubar/menubar.component';
 import { ToolbarModule } from 'primeng/toolbar';
 import {CardModule} from 'primeng/card';
+
+
+
 
 
 const routes: Routes = [

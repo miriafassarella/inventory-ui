@@ -20,6 +20,7 @@ products = [];
 sectors = [];
 
 establishments = [];
+sectorSelected?: number;
 establishmentsSelected?: number;
 
 
@@ -37,7 +38,8 @@ ngOnInit(): void {
 
 
 list(page = 0){
-  this.filter.page = page;
+
+    this.filter.page = page;
   this.productService.list(this.filter)
   .then(result => {
     this.totalRegisters = result.total;
@@ -45,11 +47,30 @@ list(page = 0){
   })
   .catch(erro => this.handle.handle(erro));
 
+
+}
+
+listProductForEstablischment(page = 0){
+
+  this.filter.page = page;
+  this.productService.listProductForEstablishment(this.filter, this.establishmentsSelected)
+  .then(result => {
+    this.totalRegisters = result.total;
+    this.products = result.products;
+
+  })
+  .catch(erro => this.handle.handle(erro));
 }
 
 whenChangingPage(event : LazyLoadEvent){
   const page = event.first! / event.rows!;
-  this.list(page);
+  if(!this.establishmentsSelected){
+    this.list(page);
+  }else{
+    this.listProductForEstablischment(page);
+  }
+
+
 
 }
 
@@ -61,7 +82,7 @@ listSectors(){
 }
 
 listEstablishments(){
-  this.productService.listEstablishments(this.establishmentsSelected!)
+  this.productService.listEstablishments(this.sectorSelected!)
   .then(establishments => {
     this.establishments = establishments.map((e:any)=> ({name: e.name, id: e.id}));
   })

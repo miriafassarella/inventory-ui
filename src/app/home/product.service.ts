@@ -40,6 +40,26 @@ export class ProductService {
     });
 }
 
+listProductForEstablishment(filter : ProductsFilter, establishmentId: any){
+  let params = new HttpParams();
+      params = params.set('page', filter.page);
+      params = params.set('size', filter.itemsPage);
+      params = params.set('establishment', establishmentId)
+
+      return this.http.get(`${this.productsUrl}`, {params})
+      .toPromise()
+      .then((response : any) => {
+        const products = response['content'];
+        const result = {
+          products,
+          total: response['totalElements']
+        };
+        return result;
+    });
+}
+
+
+
 listSectors() :Promise<any>{
 
   const params = new HttpParams();
