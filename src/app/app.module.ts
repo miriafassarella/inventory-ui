@@ -30,6 +30,8 @@ import {MenubarModule} from 'primeng/menubar';
 import { MenubarComponent } from './header/menubar/menubar.component';
 import { ToolbarModule } from 'primeng/toolbar';
 import {CardModule} from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
+
 
 
 
@@ -67,7 +69,8 @@ const routes: Routes = [
     CardModule,
     ToolbarModule,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    PanelModule
 
 ],
 

@@ -23,23 +23,16 @@ export class MenubarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.items = [
 
-      {
-        label: 'Déconnexion',
-        icon:'pi pi-fw pi-power-off',
-        command : ()=> this.logout()
-      }
-    ]
 
   this.usuarioLogado = this.auth.jwtPayload?.name;
 }
 
-  logout(){
-    this.auth.logout()
-    .then(()=> {
-      this.router.navigate(['/login']);
-    }).catch(erro => this.handle.handle(erro));
-  }
+logout(){
+  this.auth.logout()
+  .then(()=> {
+    this.router.navigate(['/login']);
+  }).catch(erro => this.handle.handle(erro));
+}
 
 }

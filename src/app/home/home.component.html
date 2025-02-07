@@ -1,14 +1,14 @@
 <div class="class="container-home>
   <p-toolbar>
-    <button pButton label="Normal" icon="pi pi-plus"></button>
+    <button pButton label="Ajouter" icon="pi pi-plus"></button>
     <div class="dropdown">
-      <p-dropdown class="menuDrop" optionValue="id" optionLabel="name" [options]="sectors" [(ngModel)]="sectorSelected"
+      <p-dropdown [style]="{ 'margin-right': '3px', 'width': '250px' }" optionValue="id" optionLabel="name" [options]="sectors" [(ngModel)]="sectorSelected"
       name="sectorSelected" (onChange)="listEstablishments()" placeholder="Secteur"></p-dropdown>
-      <p-dropdown class="menuDrop" optionValue="id" optionLabel="name" [options]="establishments"
+      <p-dropdown [style]="{ 'margin-left': '3px', 'width': '250px' }" optionValue="id" optionLabel="name" [options]="establishments"
        name="establishmentsSelected" (onChange)="listProductForEstablischment()"
         [(ngModel)]="establishmentsSelected" placeholder="Établissement" [disabled]="!sectorSelected"></p-dropdown>
     </div>
-    <input pInputText>
+    <div>56456</div>
   </p-toolbar>
 
   <div class="table">
@@ -39,8 +39,9 @@
           <td class="col-data-content">{{ product.professional.name }}</td>
           <td class="col-valor-content">{{ product.establishment.name }}</td>
           <td>
-            <button pButton icon="pi pi-pencil"></button>
-            <button pButton icon="pi pi-trash"></button>
+            <button class="action" pButton icon="pi pi-pencil"></button>
+            <button class="action" pButton icon="pi pi-eye"></button>
+            <button class="action" pButton icon="pi pi-trash"></button>
         </td>
 
       </tr>
