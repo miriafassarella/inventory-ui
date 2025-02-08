@@ -13,6 +13,7 @@ import { SecurityRoutingModule } from './security/security-routing.module';
 import { HomeComponent } from './home/home.component';
 import { ErrorHandlerService } from './error-handler.service';
 import { ProductService } from './home/product.service';
+import { DialogModule } from 'primeng/dialog';
 
 
 
@@ -70,7 +71,8 @@ const routes: Routes = [
     ToolbarModule,
     DropdownModule,
     FormsModule,
-    PanelModule
+    PanelModule,
+    DialogModule
 
 ],
 

@@ -1,27 +1,28 @@
-<div class="class="container-home>
+<div class="class=" container-home>
   <p-toolbar>
-    <button pButton label="Ajouter" icon="pi pi-plus"></button>
+    <button pButton (click)="showDialog()" label="Ajouter" icon="pi pi-plus"></button>
     <div class="dropdown">
-      <p-dropdown [style]="{ 'margin-right': '3px', 'width': '250px' }" optionValue="id" optionLabel="name" [options]="sectors" [(ngModel)]="sectorSelected"
-      name="sectorSelected" (onChange)="listEstablishments()" placeholder="Secteur"></p-dropdown>
-      <p-dropdown [style]="{ 'margin-left': '3px', 'width': '250px' }" optionValue="id" optionLabel="name" [options]="establishments"
-       name="establishmentsSelected" (onChange)="listProductForEstablischment()"
+      <p-dropdown [style]="{ 'margin-right': '3px', 'width': '250px' }" optionValue="id" optionLabel="name"
+        [options]="sectors" [(ngModel)]="sectorSelected" name="sectorSelected" (onChange)="listEstablishments()"
+        placeholder="Secteur"></p-dropdown>
+      <p-dropdown [style]="{ 'margin-left': '3px', 'width': '250px' }" optionValue="id" optionLabel="name"
+        [options]="establishments" name="establishmentsSelected" (onChange)="listProductForEstablischment()"
         [(ngModel)]="establishmentsSelected" placeholder="Établissement" [disabled]="!sectorSelected"></p-dropdown>
     </div>
-    <div>56456</div>
+    <div>56456989879879jhgjgjhgj</div>
   </p-toolbar>
 
   <div class="table">
-   <p-table  [value]="products" [paginator]="true" [rows]="filter.itemsPage"
-   [lazy]="true" [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
+    <p-table [value]="products" [paginator]="true" [rows]="filter.itemsPage" [lazy]="true"
+      [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
 
-   <ng-template>
-    <div class="flex">
+      <ng-template>
+        <div class="flex">
 
-    </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-      <tr>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
           <th>Modèle</th>
           <th>Nom du produit</th>
           <th class="col-data-header">Numéro de série</th>
@@ -29,10 +30,10 @@
           <th class="col-valor-header">Établissement</th>
           <th>Actions</th>
 
-      </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-product>
-      <tr>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
           <td>{{ product.model.name }}</td>
           <td>{{ product.name }}</td>
           <td class="col-data-content">{{ product.serialNumber }}</td>
@@ -42,13 +43,50 @@
             <button class="action" pButton icon="pi pi-pencil"></button>
             <button class="action" pButton icon="pi pi-eye"></button>
             <button class="action" pButton icon="pi pi-trash"></button>
-        </td>
+          </td>
 
-      </tr>
-  </ng-template>
+        </tr>
+      </ng-template>
 
 
-   </p-table>
+    </p-table>
   </div>
+
+<!--Modal (Bouton +Ajouter)-->
+  <p-dialog header="Ajouter des produits" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }">
+    <div class="card">
+      <p-dropdown [style]="{ 'margin-right': '3px', 'width': '250px' }" [(ngModel)]="modelSelected" optionValue="id" optionLabel="name" [options]="models" placeholder="Modèle"></p-dropdown>
+      <p-dropdown [style]="{ 'margin-left': '3px', 'width': '250px' }" optionValue="id" optionLabel="name" [options]="establishments" placeholder="Établissement"></p-dropdown>
+      <h2>Entrez le numéro de série</h2>
+
+      <div class="input-container">
+        <input pInputText [(ngModel)]="novoCodigo" (keydown.enter)="adicionarCodigo()" placeholder="Digite ou escaneie o código de barras" />
+        <button pButton label="Adicionar" icon="pi pi-plus" (click)="adicionarCodigo()"></button>
+      </div>
+      <p-table [value]="codigosDeBarras">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>#</th>
+            <th>Código de Barras</th>
+            <th>Modèle</th>
+            <th>Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-codigo let-index="rowIndex">
+          <tr>
+            <td>{{ index + 1 }}</td>
+            <td>{{ codigo }}</td>
+            <td>{{models[modelSelected! -1].name}}</td>
+            <td>
+              <button pButton icon="pi pi-trash" class=" p-button-danger" (click)="removerCodigo(index)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="flex justify-end gap-2">
+      <button pButton label="Save" (click)="visible = false"></button>
+    </div>
+  </p-dialog>
 
 </div>

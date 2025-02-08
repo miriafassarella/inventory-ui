@@ -10,7 +10,20 @@ export class Establishment{
   sector = new Sector();
 }
 
-export class product{
+export class Product{
   id?: number;
   name?: string;
 }
+
+export class Type{
+  id?: number;
+  name?: string;
+}
+
+export class Model{
+  id?: number;
+  name?: string;
+  type = new Type();
+}
+
+

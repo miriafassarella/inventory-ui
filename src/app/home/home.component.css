@@ -19,6 +19,15 @@ button:hover{
 }
 
 
+/*CSS pour le modal (+Ajouter)*/
+
+
+.input-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 
 
 
