@@ -23,11 +23,11 @@ export class HomeComponent implements OnInit {
   establishments = [];
   sectorSelected?: number;
   establishmentsSelected?: number;
-  modelSelected?: number;
+  modelSelected!: number;
 
   /*Pour l'ajout du numéro de série*/
-  codigosDeBarras: string[] = [];
-  novoCodigo: string = '';
+  serialNumber: string[] = [];
+  newCode: string = '';
 
 
   visible: boolean = false;
@@ -78,9 +78,6 @@ export class HomeComponent implements OnInit {
     } else {
       this.listProductForEstablischment(page);
     }
-
-
-
   }
 
   listSectors() {
@@ -117,14 +114,14 @@ export class HomeComponent implements OnInit {
 
 
 /*Méthodes pour l'ajout du numéro de série */
-  adicionarCodigo() {
-    if (this.novoCodigo.trim()) {
-      this.codigosDeBarras.push(this.novoCodigo.trim());
-      this.novoCodigo = ''; // Limpa o input após adicionar
+  codeAdd() {
+    if (this.newCode.trim()) {
+      this.serialNumber.push(this.newCode.trim());
+      this.newCode = ''; /* Nettoyer le champ (input) après l'avoir ajouter*/
     }
   }
 
-  removerCodigo(index: number) {
-    this.codigosDeBarras.splice(index, 1);
+  codeRemove(index: number) {
+    this.serialNumber.splice(index, 1);
   }
 }

@@ -13,6 +13,9 @@ export class Establishment{
 export class Product{
   id?: number;
   name?: string;
+  serialNumber?: string;
+  model = new Model();
+  establishment = new Establishment();
 }
 
 export class Type{

@@ -60,25 +60,26 @@
       <h2>Entrez le numéro de série</h2>
 
       <div class="input-container">
-        <input pInputText [(ngModel)]="novoCodigo" (keydown.enter)="adicionarCodigo()" placeholder="Digite ou escaneie o código de barras" />
-        <button pButton label="Adicionar" icon="pi pi-plus" (click)="adicionarCodigo()"></button>
+        <input pInputText [(ngModel)]="newCode" (keydown.enter)="codeAdd()" placeholder="Numéro de série" />
+        <button pButton label="Adicionar" icon="pi pi-plus" (click)="codeAdd()"></button>
       </div>
-      <p-table [value]="codigosDeBarras">
+      <p-table [value]="serialNumber">
         <ng-template pTemplate="header">
           <tr>
             <th>#</th>
-            <th>Código de Barras</th>
+            <th>Numéro de série</th>
             <th>Modèle</th>
             <th>Ações</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-codigo let-index="rowIndex">
+        <ng-template pTemplate="body" let-code let-index="rowIndex">
           <tr>
             <td>{{ index + 1 }}</td>
-            <td>{{ codigo }}</td>
-            <td>{{models[modelSelected! -1].name}}</td>
+            <td>{{ code }}</td>
+            <td *ngIf="modelSelected; messageElse" >{{ models[modelSelected! -1].name }}</td>
+            <td #messageElse></td>
             <td>
-              <button pButton icon="pi pi-trash" class=" p-button-danger" (click)="removerCodigo(index)"></button>
+              <button pButton icon="pi pi-trash" class=" p-button-danger" (click)="codeRemove(index)"></button>
             </td>
           </tr>
         </ng-template>
