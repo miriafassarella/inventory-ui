@@ -9,14 +9,34 @@ export class Establishment{
   enumber?: string;
   sector = new Sector();
 }
+export class Professional{
+  id?: number;
+  name?: string;
+  registration?: string;
+}
+
+export class Usability{
+  id?: number;
+  name?: string;
+}
+
+export class Owner{
+  id?: number;
+  name?: string;
+}
 
 export class Product{
   id?: number;
-  name?: string;
+  name?: string | null;
+  dpurchase?: Date | null;
   serialNumber?: string;
+  owner = new Owner();
   model = new Model();
+  usability = new Usability();
+  professional = new Professional();
   establishment = new Establishment();
 }
+
 
 export class Type{
   id?: number;

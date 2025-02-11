@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
-import { Establishment, Model, Sector } from '../core/model';
+import { Establishment, Model, Product, Sector } from '../core/model';
 
 
 export class ProductsFilter {
@@ -20,6 +20,8 @@ export class ProductService {
   sectorsUrl = 'http://localhost:8080/sectors';
   establishmentsUrl = 'http://localhost:8080/establishments';
   modelsUrl = 'http://localhost:8080/models';
+  variousProductsUrl = 'http://localhost:8080/products/add';
+
 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +43,19 @@ export class ProductService {
       });
   }
 
+
+
+  addProduct(products: any[]): Promise<any> {
+
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+
+
+    return this.http.post(this.variousProductsUrl, products, { headers })
+      .toPromise();
+  }
+
+
   listProductForEstablishment(filter: ProductsFilter, establishmentId: any) {
     let params = new HttpParams();
     params = params.set('page', filter.page);
@@ -59,6 +74,18 @@ export class ProductService {
       });
   }
 
+  listProductsAll(): Promise<any> {//sem pageable, apenas para conferir o numero de serie
+    return this.http.get(`${this.productsUrl}`)
+    .toPromise()
+    .then((response: any) => {
+      const products = response;
+
+      return products;
+    })
+
+}
+
+
   listSectors(): Promise<any> {
 
     const params = new HttpParams();
@@ -73,10 +100,11 @@ export class ProductService {
       .toPromise();
   }
 
+  /*Pas necessaire pour l'instant
   listEstablishmentsAll() :Promise<any>{
     return this.http.get<Establishment[]>(`${this.establishmentsUrl}`)
       .toPromise();
-  }
+  }*/
 
   listModels(): Promise<any> {
     return this.http.get<Model[]>(`${this.modelsUrl}`)

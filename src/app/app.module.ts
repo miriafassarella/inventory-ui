@@ -38,6 +38,8 @@ import { PanelModule } from 'primeng/panel';
 
 
 
+
+
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent},
   { path: 'inventaire', component: HomeComponent},

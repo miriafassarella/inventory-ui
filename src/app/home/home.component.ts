@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductService, ProductsFilter } from './product.service';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from '../security/auth.service';
 import { LazyLoadEvent } from 'primeng/api';
 import { ErrorHandlerService } from '../error-handler.service';
 import { Router } from '@angular/router';
-import { Sector } from '../core/model';
+import { Product, Sector } from '../core/model';
 
 
 @Component({
@@ -24,26 +24,48 @@ export class HomeComponent implements OnInit {
   sectorSelected?: number;
   establishmentsSelected?: number;
   modelSelected!: number;
+  stockSelected!: number;
+  product = new Product();
+  AjoutProduct: any[] = [];
+
 
   /*Pour l'ajout du numéro de série*/
   serialNumber: string[] = [];
   newCode: string = '';
+  dbSerie?: boolean;
 
+
+  productsAll: any[] = [];
 
   visible: boolean = false;
+  stock: any = [{name:'Centre de services East-Angus - 099', id: 22}, {name: 'Centre de services Coatikook - 097', id: 33}, {name: 'Centre de services Lac-Mégantic - 098', id: 13}
+
+  ];
+
 
   constructor(private productService: ProductService,
     private auth: AuthService,
     private handle: ErrorHandlerService,
-    private router: Router) {
+    private router: Router,
+    private messageService: MessageService
+  ) {
 
   }
 
   ngOnInit(): void {
     this.listSectors();
     this.listModels();
-    this.listEstablishmentsAll();
+
   }
+
+  closeModal() {
+    this.visible = false;
+    this.modelSelected = 0;
+    this.newCode = '';
+    this.stockSelected = 0;
+    this.AjoutProduct = []; //limpando o array para envio do produto
+  }
+
 
 
   list(page = 0) {
@@ -58,6 +80,36 @@ export class HomeComponent implements OnInit {
 
 
   }
+
+  addProduct() {
+    console.log(this.AjoutProduct);
+    if(this.modelSelected){
+      this.productService.addProduct(this.AjoutProduct)
+        .then(() => {
+          this.messageService.add({ severity:'success', summary:'Success', detail:'Les produits ont été ajoutés avec succès !' });
+          this.closeModal();
+
+        }).catch(erro => this.handle.handle(erro));
+      }else{
+        this.messageService.add({ severity:'error', summary:'Attention', detail:'Il faut ajouter au moins un produit !' });
+      }
+      console.log(this.AjoutProduct);
+
+
+
+  }
+
+  listProductsAll(){
+    this.productService.listProductsAll()
+     .then((response: any)=> {
+      this.productsAll = response;
+
+     })
+   }
+
+
+
+
 
   listProductForEstablischment(page = 0) {
 
@@ -101,12 +153,13 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  listEstablishmentsAll(){
+  /*Pas necessaire pour l'instant*/
+ /*listEstablishmentsAll(){
     this.productService.listEstablishmentsAll()
     .then(establishment=> {
       this.establishments = establishment.map((e: any) => ({ name: e.name, id: e.id }));
     })
-  }
+  }*/
 
   showDialog() {
     this.visible = true;
@@ -115,13 +168,45 @@ export class HomeComponent implements OnInit {
 
 /*Méthodes pour l'ajout du numéro de série */
   codeAdd() {
-    if (this.newCode.trim()) {
-      this.serialNumber.push(this.newCode.trim());
-      this.newCode = ''; /* Nettoyer le champ (input) après l'avoir ajouter*/
+
+    if (!this.newCode) {
+      this.messageService.add({ severity: 'warn', summary: 'Atenção', detail: 'Le champ (Número de Série) ne peut pas être vide !' });
+      return;
+    }
+    this.listProductsAll();
+    const existingSerie = this.AjoutProduct.find(b => b.serialNumber === this.newCode);
+    for(let i= 0; i < this.productsAll.length; i++){
+      if(this.productsAll[i].serialNumber === this.newCode){
+          this.dbSerie = true;
+      }
+    }
+    if (existingSerie || this.dbSerie) {
+      this.newCode = '';
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Numéro de série já existe!' });
+      this.dbSerie = false;
+    } else if (!this.modelSelected) {
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Il faut ajouter le modèle du produit !' });
+    }else if(!this.stockSelected){
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Il faut ajouter le Secteur !' });
+    }else {
+      this.product.serialNumber = this.newCode.trim();
+      this.product.model.id = this.modelSelected;
+      this.product.establishment.id = this.stockSelected;
+
+      const partialProduct = {
+        serialNumber: this.product.serialNumber,
+        model: {id: this.product.model.id, name: this.models[(this.modelSelected - 1)].name},
+        establishment: {id: this.product.establishment.id}
+      }
+      this.AjoutProduct.push(partialProduct);
+
+      this.newCode = ''; // Limpa o campo de input
+
     }
   }
 
   codeRemove(index: number) {
-    this.serialNumber.splice(index, 1);
+    this.AjoutProduct.splice(index, 1);
+
   }
 }
