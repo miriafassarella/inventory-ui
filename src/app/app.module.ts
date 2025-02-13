@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { ErrorHandlerService } from './error-handler.service';
 import { ProductService } from './home/product.service';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -21,7 +22,7 @@ import { FormsModule } from '@angular/forms';
 
 
 import { DropdownModule } from 'primeng/dropdown';
-import { MessageService, MenuItem } from 'primeng/api';
+import {ConfirmationService, MessageService, MenuItem } from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
 import {TableModule} from 'primeng/table';
 import { PasswordModule } from 'primeng/password';
@@ -74,11 +75,12 @@ const routes: Routes = [
     DropdownModule,
     FormsModule,
     PanelModule,
-    DialogModule
+    DialogModule,
+    ConfirmDialogModule
 
 ],
 
-providers: [ErrorHandlerService, MessageService,ProductService],
+providers: [ErrorHandlerService, MessageService,ProductService, ConfirmationService],
 bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,3 +2,12 @@
 <app-menubar *ngIf="displayMenubar()"></app-menubar>
 <router-outlet></router-outlet>
 <p-toast position="top-left"></p-toast>
+
+<p-confirmDialog header="Confirmer la suppression" icon="pi pi-question-circle" #confirm>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" label="Oui"
+      (click)="confirm.accept()"></button>
+    <button type="button" pButton icon="pi pi-times" label="Non"
+      (click)="confirm.reject()"></button>
+  </p-footer>
+</p-confirmDialog>

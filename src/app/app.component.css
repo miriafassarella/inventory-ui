@@ -1,1 +1,7 @@
-
+button{
+  background-color: 	#191970;
+}
+button:hover{
+  background-color: #191970 !important;
+  color: #33ffe5 !important;
+}

@@ -18,6 +18,11 @@ button:hover{
   margin: 2px;
 }
 
+.cellule-details{
+  width: 33.33%;
+  text-align: center;
+}
+
 
 /*CSS pour le modal (+Ajouter)*/
 

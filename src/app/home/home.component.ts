@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductService, ProductsFilter } from './product.service';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from '../security/auth.service';
 import { LazyLoadEvent } from 'primeng/api';
 import { ErrorHandlerService } from '../error-handler.service';
@@ -60,7 +60,8 @@ export class HomeComponent implements OnInit {
     private auth: AuthService,
     private handle: ErrorHandlerService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {
 
   }
@@ -93,6 +94,7 @@ export class HomeComponent implements OnInit {
 
       this.sectorSelected = 0;
       this.establishmentsSelected = 0;
+      this.clickedButton = "list all";
   }
 
   addProduct() {
@@ -132,7 +134,7 @@ export class HomeComponent implements OnInit {
       .then(result => {
         this.totalRegisters = result.total;
         this.products = result.products;
-
+        this.clickedButton = "list establishment"
       })
       .catch(erro => this.handle.handle(erro));
   }
@@ -157,6 +159,7 @@ export class HomeComponent implements OnInit {
     this.productService.listEstablishments(this.sectorSelected!)
       .then(establishments => {
         this.establishments = establishments.map((e: any) => ({ name: e.name, id: e.id }));
+
       })
   }
 
@@ -380,4 +383,31 @@ console.log(form);
     }).catch(erro => this.handle.handle(erro));
   }
 
+
+removeProduct(product: any){
+  this.productService.removeProduct(product.id)
+  .then(()=> {
+    if (this.clickedButton === "list all") {
+      this.list();
+      this.table.first = 0;
+    } else {
+      this.listProductForEstablischment();
+      this.table.first = 0;
+    }
+
+    this.messageService.add({ severity: 'success', detail: 'Le produit a été bien supprimé !' })
+  }
+  )};
+
+
+removeConfirm(product: any){
+  this.confirmationService.confirm({
+    message: 'Etes-vous sûr de vouloir supprimer?',
+    accept: ()=> {
+      this.removeProduct(product);
+
+    }
+  })
+
+}
 }

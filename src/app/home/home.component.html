@@ -13,7 +13,7 @@
   </p-toolbar>
 
   <div class="table">
-    <p-table [value]="products" [paginator]="true" [rows]="filter.itemsPage" [lazy]="true"
+    <p-table #table [value]="products" [paginator]="true" [rows]="filter.itemsPage" [lazy]="true"
       [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
 
       <ng-template>
@@ -33,7 +33,9 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product>
+
         <tr>
+
           <td>{{ product?.model?.name }}</td>
           <td>{{ product?.name }}</td>
           <td class="col-data-content">{{ product?.serialNumber }}</td>
@@ -42,7 +44,8 @@
           <td>
             <button class="action" pButton icon="pi pi-pencil" (click)="showBasicDialog(product.id)"></button>
             <button class="action" pButton icon="pi pi-eye" (click)="showDialog2(product.id)"></button>
-            <button class="action" pButton icon="pi pi-trash"></button>
+            <button class="action" pButton icon="pi pi-trash" tooltipPosition="top"
+          (click)="removeConfirm(product)"></button>
           </td>
 
         </tr>
@@ -51,6 +54,8 @@
 
     </p-table>
   </div>
+
+
 
 <!--Modal (Bouton +Ajouter)-->
   <p-dialog header="Ajouter des produits" [(visible)]="visible"(onHide)="closeModal()" [modal]="true" [style]="{ width: '50rem' }">

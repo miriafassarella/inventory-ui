@@ -138,6 +138,12 @@ updateProduct(product: any): Promise<any> {
 
     }
 
+    removeProduct(id: number) : Promise<any>{
+
+      return this.http.delete(`${this.productsUrl}/${id}`)
+      .toPromise();
+    }
+
 
 
 
