@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ProductService, ProductsFilter } from './product.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from '../security/auth.service';
@@ -7,6 +7,7 @@ import { ErrorHandlerService } from '../error-handler.service';
 import { Router } from '@angular/router';
 import { Owner, Product, Professional, Sector, Usability } from '../core/model';
 import { NgForm } from '@angular/forms';
+import { BarcodeComponent } from '../barcode/barcode.component';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
   establishmentsSelected?: number;
   modelSelected!: number;
   stockSelected!: number;
-  product = new Product();
+  @Output() product = new Product();
   AjoutProduct: any[] = [];
 
 
@@ -42,7 +43,8 @@ export class HomeComponent implements OnInit {
   usabilities!: any[];
   owners: any[] = [];
 
-  @ViewChild('table') table:any;
+  @ViewChild('table') table: any;
+
 
   clickedButton: string = ''; //variavel de controle para rastrear o botao
 
@@ -51,7 +53,7 @@ export class HomeComponent implements OnInit {
   visible: boolean = false;
   displayBasic: boolean = false;
   displayBasic2: boolean = false;
-  stock: any = [{name:'Centre de services East-Angus - 099', id: 22}, {name: 'Centre de services Coatikook - 097', id: 33}, {name: 'Centre de services Lac-Mégantic - 098', id: 13}
+  stock: any = [{ name: 'Centre de services East-Angus - 099', id: 22 }, { name: 'Centre de services Coatikook - 097', id: 33 }, { name: 'Centre de services Lac-Mégantic - 098', id: 13 }
 
   ];
 
@@ -92,36 +94,36 @@ export class HomeComponent implements OnInit {
       })
       .catch(erro => this.handle.handle(erro));
 
-      this.sectorSelected = 0;
-      this.establishmentsSelected = 0;
-      this.clickedButton = "list all";
+    this.sectorSelected = 0;
+    this.establishmentsSelected = 0;
+    this.clickedButton = "list all";
   }
 
   addProduct() {
     console.log(this.AjoutProduct);
-    if(this.modelSelected){
+    if (this.modelSelected) {
       this.productService.addProduct(this.AjoutProduct)
         .then(() => {
-          this.messageService.add({ severity:'success', summary:'Success', detail:'Les produits ont été ajoutés avec succès !' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Les produits ont été ajoutés avec succès !' });
           this.closeModal();
 
         }).catch(erro => this.handle.handle(erro));
-      }else{
-        this.messageService.add({ severity:'error', summary:'Attention', detail:'Il faut ajouter au moins un produit !' });
-      }
-      console.log(this.AjoutProduct);
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Attention', detail: 'Il faut ajouter au moins un produit !' });
+    }
+    console.log(this.AjoutProduct);
 
 
 
   }
 
-  listProductsAll(){
+  listProductsAll() {
     this.productService.listProductsAll()
-     .then((response: any)=> {
-      this.productsAll = response;
+      .then((response: any) => {
+        this.productsAll = response;
 
-     })
-   }
+      })
+  }
 
 
 
@@ -163,19 +165,19 @@ export class HomeComponent implements OnInit {
       })
   }
 
-  listModels(){
+  listModels() {
     this.productService.listModels()
-    .then(models=>{
-      this.models = models.map((m: any) => ({ name: m.name, id: m.id }));
-    })
+      .then(models => {
+        this.models = models.map((m: any) => ({ name: m.name, id: m.id }));
+      })
   }
 
 
- listEstablishmentsAll(){
+  listEstablishmentsAll() {
     this.productService.listEstablishmentsAll()
-    .then(establishment=> {
-      this.establishmentsAll = establishment.map((e: any) => ({ name: e.name, id: e.id }));
-    })
+      .then(establishment => {
+        this.establishmentsAll = establishment.map((e: any) => ({ name: e.name, id: e.id }));
+      })
   }
   get productArray(): any[] {
     return this.product ? [this.product] : [];
@@ -198,50 +200,50 @@ export class HomeComponent implements OnInit {
     this.listForId(id);
 
   }
-  showDialog2(id: number){
+  showDialog2(id: number) {
     this.displayBasic2 = true;
     this.listForId(id);
 
   }
 
-  listForId(id: number ){
+  listForId(id: number) {
     this.productService.searchById(id)
-    .then(product=>{
+      .then(product => {
 
-       if(product.name){
-         this.product.name = product.name;
-       }else{
-         this.product.name = null;
-       }
-       if(product.owner){
-         this.product.owner = product.owner;
-       }else{
-         this.product.owner = new Owner();
-       }
-       if(product.professional){
-         this.product.professional = product.professional;
-       }else{
-         this.product.professional = new Professional();
-       }
+        if (product.name) {
+          this.product.name = product.name;
+        } else {
+          this.product.name = null;
+        }
+        if (product.owner) {
+          this.product.owner = product.owner;
+        } else {
+          this.product.owner = new Owner();
+        }
+        if (product.professional) {
+          this.product.professional = product.professional;
+        } else {
+          this.product.professional = new Professional();
+        }
 
-       if(product.usability){
-         this.product.usability = product.usability
-       }else{
-         this.product.usability = new Usability();
-       }
-       if(product.establishment){
-         this.product.establishment = product.establishment;
-       }
-       this.product.serialNumber = product.serialNumber;
-       this.product.id = product.id;
-       this.product.model = product.model;
-       this.product.dpurchase = product.dpurchase;
+        if (product.usability) {
+          this.product.usability = product.usability
+        } else {
+          this.product.usability = new Usability();
+        }
+        if (product.establishment) {
+          this.product.establishment = product.establishment;
+        }
+        this.product.serialNumber = product.serialNumber;
+        this.product.id = product.id;
+        this.product.model = product.model;
+        this.product.dpurchase = product.dpurchase;
 
 
 
-     }).catch(erro => this.handle.handle(erro));
+      }).catch(erro => this.handle.handle(erro));
 
-   }
+  }
 
   listProfessionals() {
     this.productService.listProfessionals()
@@ -254,7 +256,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  listUsabilities(){
+  listUsabilities() {
     this.productService.listUsabilities()
       .then(usability => {
         this.usabilities = usability.map((e: any) => ({ name: e.name, id: e.id })
@@ -265,7 +267,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  listOwners(){
+  listOwners() {
     this.productService.listOwners()
       .then(owner => {
         this.owners = owner.map((e: any) => ({ name: e.name, id: e.id })
@@ -278,7 +280,7 @@ export class HomeComponent implements OnInit {
 
 
 
-/*Méthodes pour l'ajout du numéro de série */
+  /*Méthodes pour l'ajout du numéro de série */
   codeAdd() {
 
     if (!this.newCode) {
@@ -287,9 +289,9 @@ export class HomeComponent implements OnInit {
     }
     this.listProductsAll();
     const existingSerie = this.AjoutProduct.find(b => b.serialNumber === this.newCode);
-    for(let i= 0; i < this.productsAll.length; i++){
-      if(this.productsAll[i].serialNumber === this.newCode){
-          this.dbSerie = true;
+    for (let i = 0; i < this.productsAll.length; i++) {
+      if (this.productsAll[i].serialNumber === this.newCode) {
+        this.dbSerie = true;
       }
     }
     if (existingSerie || this.dbSerie) {
@@ -298,17 +300,17 @@ export class HomeComponent implements OnInit {
       this.dbSerie = false;
     } else if (!this.modelSelected) {
       this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Il faut ajouter le modèle du produit !' });
-    }else if(!this.stockSelected){
+    } else if (!this.stockSelected) {
       this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Il faut ajouter le Secteur !' });
-    }else {
+    } else {
       this.product.serialNumber = this.newCode.trim();
       this.product.model.id = this.modelSelected;
       this.product.establishment.id = this.stockSelected;
 
       const partialProduct = {
         serialNumber: this.product.serialNumber,
-        model: {id: this.product.model.id, name: this.models[(this.modelSelected - 1)].name},
-        establishment: {id: this.product.establishment.id}
+        model: { id: this.product.model.id, name: this.models[(this.modelSelected - 1)].name },
+        establishment: { id: this.product.establishment.id }
       }
       this.AjoutProduct.push(partialProduct);
 
@@ -322,7 +324,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  updateProduct(form: NgForm){
+  updateProduct(form: NgForm) {
 
     let productUpdate = {
       id: this.product.id,
@@ -338,76 +340,75 @@ export class HomeComponent implements OnInit {
 
 
 
-    if(productUpdate.owner === undefined){
+    if (productUpdate.owner === undefined) {
       productUpdate.owner = null;
 
-    }else{
-      productUpdate.owner = {id: this.product.owner.id};
-
-    }
-
-    if(form.value.usability === undefined){
-     productUpdate.usability = null;
-    }else{
-
-      productUpdate.usability = {id: this.product.usability.id};
-    }
-    if(form.value.professional === undefined){
-       productUpdate.professional = null;
-    }else{
-
-      productUpdate.professional = {id: this.product.professional.id};
-    }
-
-console.log(this.product);
-console.log(productUpdate);
-console.log(form);
-
-
-
- this.productService.updateProduct(productUpdate)
-    .then((product)=>{
-      //this.product = product;
-
-      this.messageService.add({ severity:'success', summary:'Success', detail:'Le produit a été modifié avec succès !' });
-      this.displayBasic = false;
-      if(this.clickedButton === 'method'){
-        this.list();
-        this.table.first = 0;
-      }else{
-        this.list();
-        this.table.first = 0; //usado para ir para a pagina 1 quando o produto for alterado.
-      }
-
-
-    }).catch(erro => this.handle.handle(erro));
-  }
-
-
-removeProduct(product: any){
-  this.productService.removeProduct(product.id)
-  .then(()=> {
-    if (this.clickedButton === "list all") {
-      this.list();
-      this.table.first = 0;
     } else {
-      this.listProductForEstablischment();
-      this.table.first = 0;
+      productUpdate.owner = { id: this.product.owner.id };
+
     }
 
-    this.messageService.add({ severity: 'success', detail: 'Le produit a été bien supprimé !' })
+    if (form.value.usability === undefined) {
+      productUpdate.usability = null;
+    } else {
+
+      productUpdate.usability = { id: this.product.usability.id };
+    }
+    if (form.value.professional === undefined) {
+      productUpdate.professional = null;
+    } else {
+
+      productUpdate.professional = { id: this.product.professional.id };
+    }
+
+
+
+
+
+    this.productService.updateProduct(productUpdate)
+      .then((product) => {
+        //this.product = product;
+
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Le produit a été modifié avec succès !' });
+        this.displayBasic = false;
+        if (this.clickedButton === 'list all') {
+          this.list();
+          this.table.first = 0;
+        } else {
+          this.listProductForEstablischment();
+          this.table.first = 0; //usado para ir para a pagina 1 quando o produto for alterado.
+        }
+
+
+      }).catch(erro => this.handle.handle(erro));
   }
-  )};
 
 
-removeConfirm(product: any){
-  this.confirmationService.confirm({
-    message: 'Etes-vous sûr de vouloir supprimer?',
-    accept: ()=> {
-      this.removeProduct(product);
+  removeProduct(product: any) {
+    this.productService.removeProduct(product.id)
+      .then(() => {
+        if (this.clickedButton === "list all") {
+          this.list();
+          this.table.first = 0;
+        } else {
+          this.listProductForEstablischment();
+          this.table.first = 0;
+        }
 
-    }
-  })
+        this.messageService.add({ severity: 'success', detail: 'Le produit a été bien supprimé !' })
+      }
+      )
+  };
 
-}
+
+  removeConfirm(product: any) {
+    this.confirmationService.confirm({
+      message: 'Etes-vous sûr de vouloir supprimer?',
+      accept: () => {
+        this.removeProduct(product);
+
+      }
+    })
+
+  }
 }

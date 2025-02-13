@@ -24,9 +24,7 @@ export class AppComponent implements OnInit{
   ){
 
   }
-  displayNavbar() {
-    return this.router.url !== '/login';
-  }
+
 ngOnInit(): void {
 
 }
@@ -34,7 +32,7 @@ ngOnInit(): void {
 
 
 displayMenubar(){
-  return this.router.url !== '/login';
+  return this.router.url !== '/login' && this.router.url !== '/barcode';
 }
 
 }

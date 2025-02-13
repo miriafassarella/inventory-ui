@@ -33,6 +33,7 @@ import { MenubarComponent } from './header/menubar/menubar.component';
 import { ToolbarModule } from 'primeng/toolbar';
 import {CardModule} from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
+import { BarcodeComponent } from './barcode/barcode.component';
 
 
 
@@ -44,7 +45,7 @@ import { PanelModule } from 'primeng/panel';
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent},
   { path: 'inventaire', component: HomeComponent},
-
+  {path: 'barcode', component: BarcodeComponent}
 
   ];
 
@@ -54,6 +55,7 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     MenubarComponent,
+    BarcodeComponent,
 
 
   ],
