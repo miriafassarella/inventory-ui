@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
-import { Establishment, Model, Product, Sector } from '../core/model';
+import { Establishment, Model, Owner, Product, Professional, Sector, Usability } from '../core/model';
 
 
 export class ProductsFilter {
@@ -21,6 +21,10 @@ export class ProductService {
   establishmentsUrl = 'http://localhost:8080/establishments';
   modelsUrl = 'http://localhost:8080/models';
   variousProductsUrl = 'http://localhost:8080/products/add';
+  professionalsUrl = 'http://localhost:8080/professionals';
+  usabilitiesUrl = 'http://localhost:8080/usabilities';
+  ownersUrl = 'http://localhost:8080/owners';
+
 
 
   constructor(private http: HttpClient) { }
@@ -84,6 +88,12 @@ export class ProductService {
     })
 
 }
+updateProduct(product: any): Promise<any> {
+  const headers = new HttpHeaders()
+    .append('Content-Type', 'application/json');
+    return this.http.put<Product>(`${this.productsUrl}/${product.id}`, product, { headers })
+    .toPromise();
+}
 
 
   listSectors(): Promise<any> {
@@ -100,11 +110,37 @@ export class ProductService {
       .toPromise();
   }
 
-  /*Pas necessaire pour l'instant
+
   listEstablishmentsAll() :Promise<any>{
     return this.http.get<Establishment[]>(`${this.establishmentsUrl}`)
       .toPromise();
-  }*/
+  }
+
+      listProfessionals(): Promise<any> {
+        return this.http.get<Professional>(this.professionalsUrl).toPromise();
+      }
+
+      listUsabilities(): Promise<any> {
+        return this.http.get<Usability>(this.usabilitiesUrl).toPromise();
+      }
+
+      listOwners(): Promise<any> {
+        return this.http.get<Owner>(this.ownersUrl).toPromise();
+      }
+      searchById(code: number): Promise<any> {
+
+        return this.http.get(`${this.productsUrl}/${code}`)
+        .toPromise()
+        .then((response: any) => {
+          return response;
+
+        });
+
+    }
+
+
+
+
 
   listModels(): Promise<any> {
     return this.http.get<Model[]>(`${this.modelsUrl}`)

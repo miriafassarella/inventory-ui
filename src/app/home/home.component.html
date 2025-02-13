@@ -9,7 +9,7 @@
         [options]="establishments" name="establishmentsSelected" (onChange)="listProductForEstablischment()"
         [(ngModel)]="establishmentsSelected" placeholder="Établissement" [disabled]="!sectorSelected"></p-dropdown>
     </div>
-    <div>56456989879879jhgjgjhgj</div>
+    <button pButton label="Tout dans les secteurs" (click)="list()" icon="pi pi-lock-open" [disabled]="!establishmentsSelected" class="p-button-text"></button>
   </p-toolbar>
 
   <div class="table">
@@ -40,8 +40,8 @@
           <td class="col-data-content">{{ product?.professional?.name }}</td>
           <td class="col-valor-content">{{ product?.establishment?.name }}</td>
           <td>
-            <button class="action" pButton icon="pi pi-pencil"></button>
-            <button class="action" pButton icon="pi pi-eye"></button>
+            <button class="action" pButton icon="pi pi-pencil" (click)="showBasicDialog(product.id)"></button>
+            <button class="action" pButton icon="pi pi-eye" (click)="showDialog2(product.id)"></button>
             <button class="action" pButton icon="pi pi-trash"></button>
           </td>
 
@@ -91,9 +91,153 @@
 
     <ng-template pTemplate="footer">
       <div class="dialog-footer">
-        <button pButton label="Ajouter" icon="pi pi-check" (click)="addProduct()" class="p-button-primary"></button>
+        <button pButton label="Envoyer" icon="pi pi-check" (click)="addProduct()" class="p-button-primary"></button>
       </div>
     </ng-template>
   </p-dialog>
 
+   <!--Modal para o botao de modificar produit---------------->
+
+   <p-dialog header="#" [modal]="true" [(visible)]="displayBasic" [style]="{width: '50vw', height: '100vw'}">
+    <form #productForm="ngForm">
+      <p><strong>Numéro de série: {{product.serialNumber}}</strong></p>
+      <div class="grid">
+        <div class="col-12 p-fluid">
+          <label>Nom</label>
+          <input name="name" type="text" pInputText [(ngModel)]="product.name" #name name="name" maxlength="15" placeholder="Entrez le nom (maximum 15 caractères)"/>
+
+        </div>
+
+        <div class="col-12 p-fluid">
+
+          <label>Proprietaire</label>
+          <p-dropdown optionLabel="name" optionValue="id" [filter]="true" [options]="owners" placeholder="Sélectionnez"
+          [(ngModel)]="product.owner.id" name="owner"></p-dropdown>
+
+        </div>
+
+        <div class="col-12 p-fluid">
+
+          <label>Type d'utilisation</label>
+          <p-dropdown optionLabel="name" optionValue="id" [filter]="true" [options]="usabilities"
+          placeholder="Sélectionnez" [(ngModel)]="product.usability.id" name="usability"></p-dropdown>
+        </div>
+        <div class="col-12 p-fluid">
+
+          <label>Attribué à:</label>
+          <p-dropdown optionLabel="name" optionValue="id" [filter]="true" [options]="professionals"
+          placeholder="Sélectionnez" [(ngModel)]="product.professional.id" name="professional"></p-dropdown>
+        </div>
+        <div class="col-12 p-fluid">
+
+          <label>Établissement</label>
+          <p-dropdown optionLabel="name" optionValue="id"
+          [options]="establishmentsAll" [(ngModel)]="product.establishment.id" name="establishment" placeholder="Sélectionnez"></p-dropdown>
+        </div>
+      </div>
+
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (onClick)="updateProduct(productForm)" label="Modifier" styleClass="p-button-text"></p-button>
+    </ng-template>
+
+</p-dialog>
+
+<!--Modal para o botao de visualizar o produro-->
+
+
+<p-dialog header="Détails du produit" [(visible)]="displayBasic2" [style]="{width: '70vw'}" [modal]="true">
+  <p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines ">
+    <ng-template pTemplate="header">
+        <tr >
+            <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Modèle</th>
+            <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Nom</th>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-index >
+        <tr>
+            <td class="cellule-details">{{index.model.name}}</td>
+            <td class="cellule-details">{{index.name}}</td>
+
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
+  <ng-template pTemplate="header">
+      <tr >
+
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)' }" class="cellule-details">Numéro de série</th>
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Date d'achat</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-index >
+      <tr>
+
+          <td class="cellule-details">{{index.serialNumber}}</td>
+          <td class="cellule-details">{{index.dpurchase}}</td>
+      </tr>
+  </ng-template>
+</p-table>
+
+<p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
+  <ng-template pTemplate="header">
+      <tr>
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Type de produit</th>
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Type d'utilisation</th>
+
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-index >
+      <tr>
+          <td class="cellule-details">{{index.model.type.name}}</td>
+          <td class="cellule-details">{{index.usability.name}}</td>
+
+      </tr>
+  </ng-template>
+</p-table>
+
+<p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
+  <ng-template pTemplate="header">
+      <tr>
+
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Propriétaire</th>
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Atribué à</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-index >
+      <tr>
+
+          <td class="cellule-details">{{index.owner.name}}</td>
+          <td class="cellule-details">{{index.professional.name}}</td>
+      </tr>
+  </ng-template>
+</p-table>
+
+<p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
+  <ng-template pTemplate="header">
+      <tr>
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Établishment</th>
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Secteur</th>
+
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-index >
+      <tr>
+          <td class="cellule-details">{{index.establishment.name}}</td>
+          <td class="cellule-details">{{index.establishment.sector.name}}</td>
+
+      </tr>
+  </ng-template>
+</p-table>
+<ng-template pTemplate="footer">
+  <p-button icon="pi pi-print " label="Générer une étiquette" (click)="displayBasic2=false" styleClass="p-button-text"></p-button>
+</ng-template>
+
+</p-dialog>
 </div>
+
+
+
+

@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductService, ProductsFilter } from './product.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from '../security/auth.service';
 import { LazyLoadEvent } from 'primeng/api';
 import { ErrorHandlerService } from '../error-handler.service';
 import { Router } from '@angular/router';
-import { Product, Sector } from '../core/model';
+import { Owner, Product, Professional, Sector, Usability } from '../core/model';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -36,8 +37,20 @@ export class HomeComponent implements OnInit {
 
 
   productsAll: any[] = [];
+  establishmentsAll!: any[];
+  professionals!: any[];
+  usabilities!: any[];
+  owners: any[] = [];
+
+  @ViewChild('table') table:any;
+
+  clickedButton: string = ''; //variavel de controle para rastrear o botao
+
+
 
   visible: boolean = false;
+  displayBasic: boolean = false;
+  displayBasic2: boolean = false;
   stock: any = [{name:'Centre de services East-Angus - 099', id: 22}, {name: 'Centre de services Coatikook - 097', id: 33}, {name: 'Centre de services Lac-Mégantic - 098', id: 13}
 
   ];
@@ -78,7 +91,8 @@ export class HomeComponent implements OnInit {
       })
       .catch(erro => this.handle.handle(erro));
 
-
+      this.sectorSelected = 0;
+      this.establishmentsSelected = 0;
   }
 
   addProduct() {
@@ -153,17 +167,112 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  /*Pas necessaire pour l'instant*/
- /*listEstablishmentsAll(){
+
+ listEstablishmentsAll(){
     this.productService.listEstablishmentsAll()
     .then(establishment=> {
-      this.establishments = establishment.map((e: any) => ({ name: e.name, id: e.id }));
+      this.establishmentsAll = establishment.map((e: any) => ({ name: e.name, id: e.id }));
     })
-  }*/
+  }
+  get productArray(): any[] {
+    return this.product ? [this.product] : [];
+  }
+
 
   showDialog() {
     this.visible = true;
   }
+  showBasicDialog(id: number) {
+    this.displayBasic = true;
+
+    this.listEstablishmentsAll();
+
+
+    this.listProfessionals();
+    this.listUsabilities();
+    this.listOwners();
+
+    this.listForId(id);
+
+  }
+  showDialog2(id: number){
+    this.displayBasic2 = true;
+    this.listForId(id);
+
+  }
+
+  listForId(id: number ){
+    this.productService.searchById(id)
+    .then(product=>{
+
+       if(product.name){
+         this.product.name = product.name;
+       }else{
+         this.product.name = null;
+       }
+       if(product.owner){
+         this.product.owner = product.owner;
+       }else{
+         this.product.owner = new Owner();
+       }
+       if(product.professional){
+         this.product.professional = product.professional;
+       }else{
+         this.product.professional = new Professional();
+       }
+
+       if(product.usability){
+         this.product.usability = product.usability
+       }else{
+         this.product.usability = new Usability();
+       }
+       if(product.establishment){
+         this.product.establishment = product.establishment;
+       }
+       this.product.serialNumber = product.serialNumber;
+       this.product.id = product.id;
+       this.product.model = product.model;
+       this.product.dpurchase = product.dpurchase;
+
+
+
+     }).catch(erro => this.handle.handle(erro));
+
+   }
+
+  listProfessionals() {
+    this.productService.listProfessionals()
+      .then(professional => {
+        this.professionals = professional.map((e: any) => ({ name: e.name, id: e.id })
+
+        );
+      }).catch(erro => this.handle.handle(erro));
+
+
+  }
+
+  listUsabilities(){
+    this.productService.listUsabilities()
+      .then(usability => {
+        this.usabilities = usability.map((e: any) => ({ name: e.name, id: e.id })
+
+        );
+      }).catch(erro => this.handle.handle(erro));
+
+
+  }
+
+  listOwners(){
+    this.productService.listOwners()
+      .then(owner => {
+        this.owners = owner.map((e: any) => ({ name: e.name, id: e.id })
+
+        );
+      }).catch(erro => this.handle.handle(erro));
+
+  }
+
+
 
 
 /*Méthodes pour l'ajout du numéro de série */
@@ -209,4 +318,66 @@ export class HomeComponent implements OnInit {
     this.AjoutProduct.splice(index, 1);
 
   }
+
+  updateProduct(form: NgForm){
+
+    let productUpdate = {
+      id: this.product.id,
+      name: form.value.name,
+      serialNumber: this.product.serialNumber,
+      owner: form.value.owner,
+      model: this.product.model,
+      usability: form.value.usability,
+      professional: form.value.professional,
+      establishment: this.product.establishment
+    };
+
+
+
+
+    if(productUpdate.owner === undefined){
+      productUpdate.owner = null;
+
+    }else{
+      productUpdate.owner = {id: this.product.owner.id};
+
+    }
+
+    if(form.value.usability === undefined){
+     productUpdate.usability = null;
+    }else{
+
+      productUpdate.usability = {id: this.product.usability.id};
+    }
+    if(form.value.professional === undefined){
+       productUpdate.professional = null;
+    }else{
+
+      productUpdate.professional = {id: this.product.professional.id};
+    }
+
+console.log(this.product);
+console.log(productUpdate);
+console.log(form);
+
+
+
+ this.productService.updateProduct(productUpdate)
+    .then((product)=>{
+      //this.product = product;
+
+      this.messageService.add({ severity:'success', summary:'Success', detail:'Le produit a été modifié avec succès !' });
+      this.displayBasic = false;
+      if(this.clickedButton === 'method'){
+        this.list();
+        this.table.first = 0;
+      }else{
+        this.list();
+        this.table.first = 0; //usado para ir para a pagina 1 quando o produto for alterado.
+      }
+
+
+    }).catch(erro => this.handle.handle(erro));
+  }
+
 }
