@@ -95,4 +95,9 @@ export class AuthService {
       this.cleanAccessToken();
     });
   }
+
+  havePermission(permission: string){
+
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permission);
+  }
 }

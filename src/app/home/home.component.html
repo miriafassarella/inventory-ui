@@ -4,12 +4,29 @@
     <div class="dropdown">
       <p-dropdown [style]="{ 'margin-right': '3px', 'width': '250px' }" optionValue="id" optionLabel="name"
         [options]="sectors" [(ngModel)]="sectorSelected" name="sectorSelected" (onChange)="listEstablishments()"
-        placeholder="Secteur"></p-dropdown>
+        placeholder="Secteur">
+        <ng-template let-s pTemplate="item">
+          <div class="flex items-center">
+            <i *ngIf="s.icone" [ngClass]="s.icone" class="pi pi-lock-open"></i>
+            <span class="ml-2">{{ s?.name }}</span>
+          </div>
+        </ng-template>
+        <ng-template let-s pTemplate="selectedItem">
+          <div class="flex items-center">
+            <i *ngIf="s?.icone" [ngClass]="s.icone" class="pi pi-lock-open"></i>
+            <span class="ml-2">{{ s?.name }}</span>
+          </div>
+        </ng-template>
+
+
+      </p-dropdown>
       <p-dropdown [style]="{ 'margin-left': '3px', 'width': '250px' }" optionValue="id" optionLabel="name"
         [options]="establishments" name="establishmentsSelected" (onChange)="listProductForEstablischment()"
         [(ngModel)]="establishmentsSelected" placeholder="Établissement" [disabled]="!sectorSelected"></p-dropdown>
     </div>
-    <button pButton label="Tout dans les secteurs" (click)="list()" icon="pi pi-lock-open" [disabled]="!establishmentsSelected" class="p-button-text"></button>
+    <button pButton label="admin" icon="pi pi-key" class="p-button-text"
+    *ngIf="havePermission('')"></button>
+
   </p-toolbar>
 
   <div class="table">
@@ -116,7 +133,7 @@
         <div class="col-12 p-fluid">
 
           <label>Proprietaire</label>
-          <p-dropdown optionLabel="name" optionValue="id" [filter]="true" [options]="owners" placeholder="Sélectionnez"
+          <p-dropdown optionLabel="name" optionValue="id" [options]="owners" placeholder="Sélectionnez"
           [(ngModel)]="product.owner.id" name="owner"></p-dropdown>
 
         </div>
@@ -124,13 +141,13 @@
         <div class="col-12 p-fluid">
 
           <label>Type d'utilisation</label>
-          <p-dropdown optionLabel="name" optionValue="id" [filter]="true" [options]="usabilities"
+          <p-dropdown optionLabel="name" optionValue="id" [options]="usabilities"
           placeholder="Sélectionnez" [(ngModel)]="product.usability.id" name="usability"></p-dropdown>
         </div>
         <div class="col-12 p-fluid">
 
           <label>Attribué à:</label>
-          <p-dropdown optionLabel="name" optionValue="id" [filter]="true" [options]="professionals"
+          <p-dropdown optionLabel="name" optionValue="id" [options]="professionals"
           placeholder="Sélectionnez" [(ngModel)]="product.professional.id" name="professional"></p-dropdown>
         </div>
         <div class="col-12 p-fluid">

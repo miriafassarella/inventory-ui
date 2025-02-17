@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   totalRegisters = 0;
   filter = new ProductsFilter();
   products = [];
-  sectors = [];
+  sectors: any[] = [];
   models: any = [];
 
   establishments = [];
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
   }
 
   addProduct() {
-    console.log(this.AjoutProduct);
+
     if (this.modelSelected) {
       this.productService.addProduct(this.AjoutProduct)
         .then(() => {
@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
     } else {
       this.messageService.add({ severity: 'error', summary: 'Attention', detail: 'Il faut ajouter au moins un produit !' });
     }
-    console.log(this.AjoutProduct);
+
 
 
 
@@ -150,19 +150,33 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  listSectors() {
-    this.productService.listSectors()
-      .then(result => {
-        this.sectors = result.map((s: any) => ({ name: s.name, id: s.id }));
-      })
+  havePermission( permission: string){
+    return !this.auth.havePermission(permission);
   }
 
+  listSectors() {
+    this.productService.listSectors()
+      .then((result: any) => {
+        this.sectors = result.map((s: any) => ({ name: s.name, id: s.id }), {name: "Dans tous les secteurs", id: 3});
+        this.sectors.push({name: "Dans tous les secteurs", id: 0, icone: 'pi pi-lock-open'});
+
+      }
+
+      );
+
+    }
+
   listEstablishments() {
+    if(this.sectorSelected !== 0){
     this.productService.listEstablishments(this.sectorSelected!)
       .then(establishments => {
         this.establishments = establishments.map((e: any) => ({ name: e.name, id: e.id }));
 
       })
+    }else{
+      this.list();
+    }
+    console.log(this.sectorSelected);
   }
 
   listModels() {
