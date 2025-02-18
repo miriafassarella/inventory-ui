@@ -1,21 +1,59 @@
+<div class="flex justify-content-between flex-wrap">
+  <div class="boxnav">
+    <p-sidebar [(visible)]="sidebarVisible">
+      <h3>{{loggedUser}}</h3>
 
-<p-toolbar>
-  <img src="assets/logo.png" alt="Logo" class="menu-logo" />
-  <div>
-    <div class="center">
-      Inventaire
+      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
+        <ng-template pTemplate="title">Utilisateurs</ng-template>
+        <ng-template pTemplate="content">
+
+        </ng-template>
+      </p-card>
+      <p-card class="clickable-card" header="" routerLink="/inventaire" (click)="sidebarVisible = false">
+        <ng-template pTemplate="title">Produits</ng-template>
+        <ng-template pTemplate="content">
+
+        </ng-template>
+      </p-card>
+      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
+        <ng-template pTemplate="title">Utilisateurs</ng-template>
+        <ng-template pTemplate="content">
+
+        </ng-template>
+      </p-card>
+      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
+        <ng-template pTemplate="title">Utilisateurs</ng-template>
+        <ng-template pTemplate="content">
+
+        </ng-template>
+      </p-card>
+      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
+        <ng-template pTemplate="title">Utilisateurs</ng-template>
+        <ng-template pTemplate="content">
+
+        </ng-template>
+      </p-card>
+      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
+        <ng-template pTemplate="title">Utilisateurs</ng-template>
+        <ng-template pTemplate="content">
+
+        </ng-template>
+      </p-card>
+    </p-sidebar>
+    <button pButton class="sidebar" (click)="sidebarVisible = true" icon="pi pi-bars"></button>
+
+    <img src="assets/logo.png" alt="Logo" class="menu-logo" />
+
+  </div>
+  <div class="boxnav center">
+    <p>Inventaire</p>
+  </div>
+  <div class="boxnav">
+    <div class="flex flex-row">
+      <p pButton label="{{loggedUser}}" icon="pi pi-user" class="p-button-text"></p>
+      <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="p-button-text"></button>
     </div>
 
   </div>
-  <div class="flex flex-row">
 
-    <p pButton label="{{usuarioLogado}}" icon="pi pi-user" class="p-button-text"><p>
-    <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="p-button-text"></button>
-  </div>
-</p-toolbar>
-
-
-
-
-
-
+</div>

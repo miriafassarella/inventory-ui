@@ -49,4 +49,11 @@ export class Model{
   type = new Type();
 }
 
+export class Person {
+    name?: string;
+    mail?: string;
+    password?: string;
+    matricule?: string;
+    permissions?: Number[];
+}
 

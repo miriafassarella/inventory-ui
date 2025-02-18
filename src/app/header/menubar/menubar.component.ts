@@ -14,8 +14,11 @@ import { ErrorHandlerService } from 'src/app/error-handler.service';
 })
 export class MenubarComponent implements OnInit {
 
-  usuarioLogado: any;
+  loggedUser: any;
   items!: MenuItem[];
+
+  sidebarVisible: boolean = false;
+
   constructor(
     private auth: AuthService,
     private handle: ErrorHandlerService,
@@ -25,7 +28,7 @@ export class MenubarComponent implements OnInit {
   ngOnInit(): void {
 
 
-  this.usuarioLogado = this.auth.jwtPayload?.name;
+  this.loggedUser = this.auth.jwtPayload?.name;
 }
 
 logout(){

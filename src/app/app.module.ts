@@ -34,7 +34,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import {CardModule} from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { BarcodeComponent } from './barcode/barcode.component';
-
+import { SidebarModule } from 'primeng/sidebar';
+import { UserComponent } from './user/user.component';
 
 
 
@@ -45,7 +46,8 @@ import { BarcodeComponent } from './barcode/barcode.component';
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent},
   { path: 'inventaire', component: HomeComponent},
-  {path: 'barcode', component: BarcodeComponent}
+  {path: 'barcode', component: BarcodeComponent},
+  {path: 'users', component: UserComponent},
 
   ];
 
@@ -56,6 +58,7 @@ const routes: Routes = [
     HomeComponent,
     MenubarComponent,
     BarcodeComponent,
+    UserComponent,
 
 
   ],
@@ -78,7 +81,8 @@ const routes: Routes = [
     FormsModule,
     PanelModule,
     DialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    SidebarModule
 
 ],
 

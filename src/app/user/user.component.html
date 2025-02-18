@@ -1,0 +1,40 @@
+<div class="table">
+  <p-table #table [paginator]="true" [lazy]="true"
+  [value]="persons"[rows]="filter.itemsPage"
+  [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
+
+    <ng-template>
+      <div class="flex">
+
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>E-mail</th>
+
+
+        <th>Actions</th>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-person>
+
+      <tr>
+
+        <td class="col-valor-content">{{ person?.name }}</td>
+        <td class="col-valor-content">{{ person?.mail }}</td>
+
+        <td>
+          <button class="action" pButton icon="pi pi-pencil"></button>
+
+          <button class="action" pButton icon="pi pi-trash" tooltipPosition="top"
+        ></button>
+        </td>
+
+      </tr>
+    </ng-template>
+
+
+  </p-table>
+</div>
