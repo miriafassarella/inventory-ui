@@ -36,7 +36,8 @@ import { PanelModule } from 'primeng/panel';
 import { BarcodeComponent } from './barcode/barcode.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { UserComponent } from './user/user.component';
-
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 
@@ -82,7 +83,9 @@ const routes: Routes = [
     PanelModule,
     DialogModule,
     ConfirmDialogModule,
-    SidebarModule
+    SidebarModule,
+    CheckboxModule,
+    RadioButtonModule
 
 ],
 

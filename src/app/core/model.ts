@@ -53,7 +53,6 @@ export class Person {
     name?: string;
     mail?: string;
     password?: string;
-    matricule?: string;
-    permissions?: Number[];
+    permissionsIds?: Number[];
 }
 

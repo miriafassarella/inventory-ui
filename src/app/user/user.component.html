@@ -1,7 +1,14 @@
+
 <div class="table">
   <p-table #table [paginator]="true" [lazy]="true"
   [value]="persons"[rows]="filter.itemsPage"
   [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
+
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <button pButton label="Ajouter" (click)="showDialog()" icon="pi pi-plus"></button>
+    </div>
+</ng-template>
 
     <ng-template>
       <div class="flex">
@@ -38,3 +45,58 @@
 
   </p-table>
 </div>
+
+
+<p-dialog header="Ajouter un utilisateur" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+
+
+
+
+  <form autocomplete="off" #loginForm="ngForm">
+    <div class="grid p-fluid">
+      <div class="col-12">
+      <div>
+
+      </div>
+    </div>
+      <div class="col-12">
+        <label>Nom</label>
+        <input pInputText type="name" name="name" ngModel required >
+
+
+      </div>
+      <div class="col-12">
+
+        <label> E-mail</label>
+        <input pInputText type="email" name="email" ngModel required >
+
+
+      </div>
+      <div class="col-12 input">
+        <label>Mot de passe</label>
+        <input pInputText type="password" name="password" ngModel required>
+
+
+      </div>
+
+       <div class="grid checkbox">
+        <div class=" col-6 field-checkbox">
+          <p-radioButton name="option" value="option1" [(ngModel)]="selected"></p-radioButton>
+          <label>Autorisation administrateur</label>
+        </div>
+
+        <div class=" col-6 field-checkbox">
+        <p-radioButton name="option" value="option2" [(ngModel)]="selected"></p-radioButton>
+        <label>Autorisation utilisateur</label>
+        </div>
+
+      </div>
+
+
+      <div class="col-12">
+        <button pButton type="submit" label="Enregistrer" (click)="addUser(loginForm)">
+        </button>
+      </div>
+    </div>
+</form>
+</p-dialog>

@@ -34,5 +34,14 @@ export class UserService {
           return result;
         });
     }
+
+    addUser(user: any): Promise<any>{
+      const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+
+
+    return this.http.post(this.personsUrl, user, { headers })
+      .toPromise();
+    }
 }
 

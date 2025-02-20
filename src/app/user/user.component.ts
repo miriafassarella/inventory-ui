@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Person } from '../core/model';
 import { ProductsFilter, UserService } from './user.service';
 import { ErrorHandlerService } from '../error-handler.service';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -16,8 +17,15 @@ export class UserComponent implements OnInit {
   filter = new ProductsFilter();
   totalRegisters = 0;
   persons = [];
+  visible?: boolean;
+  selected: string = "";
 
-  constructor( private handle: ErrorHandlerService, private userService: UserService) { }
+
+
+
+  constructor( private handle: ErrorHandlerService,
+              private userService: UserService,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.list();
@@ -43,5 +51,30 @@ export class UserComponent implements OnInit {
         this.list(page);
 
     }
+
+    closeModal() {
+      this.visible = false;
+
+    }
+
+    showDialog(){
+      this.visible = true;
+    }
+
+    addUser(form: NgForm){
+     this.person.name = form.value.name;
+     this.person.mail = form.value.email;
+     this.person.password = form.value.password;
+     if(this.selected === "option1"){
+      this.person.permissionsIds = [1, 2, 3, 4, 5, 6, 7, 8]; /*API - à changer*/
+     }else{
+      this.person.permissionsIds = [5, 6, 7, 8];/*API - à changer */
+     }
+     this.userService.addUser(this.person)
+     .then(()=>{
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'L\'utilisateur a été ajouter avec succès !' });
+     })
+    }
+
 
 }
