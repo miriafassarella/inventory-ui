@@ -1,4 +1,10 @@
 
+<p-toolbar>
+
+
+</p-toolbar>
+
+
 <div class="table">
   <p-table #table [paginator]="true" [lazy]="true"
   [value]="persons"[rows]="filter.itemsPage"
@@ -33,9 +39,9 @@
         <td class="col-valor-content">{{ person?.mail }}</td>
 
         <td>
-          <button class="action" pButton icon="pi pi-pencil"></button>
 
-          <button class="action" pButton icon="pi pi-trash" tooltipPosition="top"
+
+          <button class="action" (click)="removeConfirm(person)" pButton icon="pi pi-trash" tooltipPosition="top"
         ></button>
         </td>
 
@@ -47,12 +53,12 @@
 </div>
 
 
-<p-dialog header="Ajouter un utilisateur" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+<p-dialog header="Ajouter un utilisateur" [(visible)]="visible" (onHide)="closeModal()" [modal]="true" [style]="{ width: '25rem' }">
 
 
 
 
-  <form autocomplete="off" #loginForm="ngForm">
+  <form autocomplete="off" #form="ngForm">
     <div class="grid p-fluid">
       <div class="col-12">
       <div>
@@ -61,20 +67,20 @@
     </div>
       <div class="col-12">
         <label>Nom</label>
-        <input pInputText type="name" name="name" ngModel required >
+        <input pInputText type="name" name="name" [(ngModel)]="person.name" ngModel required >
 
 
       </div>
       <div class="col-12">
 
         <label> E-mail</label>
-        <input pInputText type="email" name="email" ngModel required >
+        <input pInputText type="email" name="email" [(ngModel)]="person.mail" ngModel required >
 
 
       </div>
       <div class="col-12 input">
         <label>Mot de passe</label>
-        <input pInputText type="password" name="password" ngModel required>
+        <input pInputText type="password" name="password" [(ngModel)]="person.password" ngModel required>
 
 
       </div>
@@ -94,7 +100,7 @@
 
 
       <div class="col-12">
-        <button pButton type="submit" label="Enregistrer" (click)="addUser(loginForm)">
+        <button pButton type="submit" label="Enregistrer" (click)="addUser(form)">
         </button>
       </div>
     </div>

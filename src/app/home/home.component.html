@@ -46,10 +46,57 @@
           <th>Nom du produit</th>
           <th class="col-data-header">Numéro de série</th>
           <th class="col-data-header">Enseignant</th>
-          <th class="col-valor-header">Établissement</th>
-          <th>Actions</th>
+
+          <th class="col-valor-header">Actions</th>
 
         </tr>
+<!--test-->
+
+<tr>
+  <th>
+      <p-columnFilter
+      [showMenu]="false"
+          type="text"
+          field="name"
+          placeholder="Search by name"
+          ariaLabel="Filter Name"
+      ></p-columnFilter>
+  </th>
+  <th>
+      <p-columnFilter
+      [showMenu]="false"
+          type="text"
+          field="country.name"
+          placeholder="Search by country"
+          ariaLabel="Filter Country"
+      ></p-columnFilter>
+  </th>
+  <th>
+    <p-columnFilter
+    [showMenu]="false"
+        type="text"
+        field="country.name"
+        placeholder="Search by country"
+        ariaLabel="Filter Country"
+    ></p-columnFilter>
+</th>
+<th>
+  <p-columnFilter
+  [showMenu]="false"
+      type="text"
+      field="country.name"
+      placeholder="Search by country"
+      ariaLabel="Filter Country"
+  ></p-columnFilter>
+</th>
+  <th>
+
+    <p-button  label="Export" icon="pi pi-upload" severity="secondary"></p-button>
+
+</th>
+</tr>
+
+<!--fimTest-->
       </ng-template>
       <ng-template pTemplate="body" let-product>
 
@@ -59,7 +106,7 @@
           <td>{{ product?.name }}</td>
           <td class="col-data-content">{{ product?.serialNumber }}</td>
           <td class="col-data-content">{{ product?.professional?.name }}</td>
-          <td class="col-valor-content">{{ product?.establishment?.name }}</td>
+
           <td>
             <button class="action" pButton icon="pi pi-pencil" (click)="showBasicDialog(product.id)"></button>
             <button class="action" pButton icon="pi pi-eye" (click)="showDialog2(product.id)"></button>
@@ -87,7 +134,7 @@
         <input pInputText [(ngModel)]="newCode" (keydown.enter)="codeAdd()" placeholder="Numéro de série" />
         <button pButton icon="pi pi-plus" (click)="codeAdd()"></button>
       </div>
-      <p-table [value]="AjoutProduct">
+      <p-table [value]="AjoutProduct" [paginator]="true" [rows]="5">
         <ng-template pTemplate="header">
           <tr>
             <th>#</th>
@@ -97,7 +144,7 @@
             <th>Actions</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-code let-index="rowIndex">
+        <ng-template pTemplate="body" let-index="rowIndex">
           <tr>
             <td>{{ index + 1 }}</td>
             <td>{{ AjoutProduct[index].serialNumber}}</td>
@@ -111,6 +158,8 @@
         </ng-template>
 
       </p-table>
+
+
     </div>
 
     <ng-template pTemplate="footer">

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Person } from '../core/model';
 import { ProductsFilter, UserService } from './user.service';
 import { ErrorHandlerService } from '../error-handler.service';
-import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 
 
@@ -20,12 +20,13 @@ export class UserComponent implements OnInit {
   visible?: boolean;
   selected: string = "";
 
-
+@ViewChild('table') table: any;
 
 
   constructor( private handle: ErrorHandlerService,
               private userService: UserService,
-              private messageService: MessageService) { }
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.list();
@@ -59,7 +60,9 @@ export class UserComponent implements OnInit {
 
     showDialog(){
       this.visible = true;
+      this.person = new Person();
     }
+
 
     addUser(form: NgForm){
      this.person.name = form.value.name;
@@ -70,11 +73,37 @@ export class UserComponent implements OnInit {
      }else{
       this.person.permissionsIds = [5, 6, 7, 8];/*API - à changer */
      }
-     this.userService.addUser(this.person)
-     .then(()=>{
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'L\'utilisateur a été ajouter avec succès !' });
-     })
+
+
+
+      this.userService.addUser(this.person)
+      .then(()=>{
+       form.reset();
+       this.visible = false;
+       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'L\'utilisateur a été ajouter avec succès !' });
+      })
+
     }
 
+    removePerson(person: any) {
+      this.userService.removePerson(person.id)
+        .then(() => {
+
+          this.list();
+          this.table.first = 0;
+          this.messageService.add({ severity: 'success', detail: 'L\'utilisateur a été bien supprimé !' })
+        }
+        )
+    }
+    removeConfirm(person: any) {
+      this.confirmationService.confirm({
+        message: 'Etes-vous sûr de vouloir supprimer?',
+        accept: () => {
+          this.removePerson(person);
+
+        }
+      })
+
+    }
 
 }

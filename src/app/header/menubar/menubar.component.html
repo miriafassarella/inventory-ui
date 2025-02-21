@@ -1,7 +1,9 @@
 <div class="flex justify-content-between flex-wrap">
   <div class="boxnav">
-    <p-sidebar [(visible)]="sidebarVisible">
+    <p-sidebar [(visible)]="sidebarVisible" class="">
       <h3>{{loggedUser}}</h3>
+
+
 
       <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
         <ng-template pTemplate="title">Utilisateurs</ng-template>
@@ -27,18 +29,7 @@
 
         </ng-template>
       </p-card>
-      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
-        <ng-template pTemplate="title">Utilisateurs</ng-template>
-        <ng-template pTemplate="content">
 
-        </ng-template>
-      </p-card>
-      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
-        <ng-template pTemplate="title">Utilisateurs</ng-template>
-        <ng-template pTemplate="content">
-
-        </ng-template>
-      </p-card>
     </p-sidebar>
     <button pButton class="sidebar" (click)="sidebarVisible = true" icon="pi pi-bars"></button>
 

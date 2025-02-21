@@ -43,5 +43,12 @@ export class UserService {
     return this.http.post(this.personsUrl, user, { headers })
       .toPromise();
     }
+
+    removePerson(id: number) : Promise<any>{
+
+      return this.http.delete(`${this.personsUrl}/${id}`)
+      .toPromise();
+    }
+
 }
 

@@ -38,8 +38,8 @@ import { SidebarModule } from 'primeng/sidebar';
 import { UserComponent } from './user/user.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
-
-
+import { TagModule } from 'primeng/tag';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 
@@ -85,7 +85,9 @@ const routes: Routes = [
     ConfirmDialogModule,
     SidebarModule,
     CheckboxModule,
-    RadioButtonModule
+    RadioButtonModule,
+    TagModule,
+    FileUploadModule
 
 ],
 
