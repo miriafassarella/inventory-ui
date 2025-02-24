@@ -1,0 +1,53 @@
+<p-toolbar></p-toolbar>
+
+<div class="table">
+  <p-table #table [paginator]="true" [lazy]="true" [value]="owners" [rows]="filter.itemsPage"
+    [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button pButton label="Ajouter" (click)="showDialog()" icon="pi pi-plus"></button>
+      </div>
+    </ng-template>
+    <ng-template>
+      <div class="flex">
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-owner>
+      <tr>
+        <td class="col-valor-content">{{ owner.name }}</td>
+
+        <td>
+          <button class="action" (click)="removeConfirm(owner)" pButton icon="pi pi-trash"
+            tooltipPosition="top"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog header="Ajouter un propriétaire" [(visible)]="visible" (onHide)="closeModal()" [modal]="true"
+  [style]="{ width: '25rem' }">
+  <form autocomplete="off" #form="ngForm">
+    <div class="grid p-fluid">
+      <div class="col-12">
+        <div>
+        </div>
+      </div>
+      <div class="col-12">
+        <label>Nom</label>
+        <input pInputText type="name" name="name" [(ngModel)]="owner.name" ngModel required>
+      </div>
+
+
+      <div class="col-12">
+        <button pButton type="submit" label="Enregistrer" (click)="addOwner(form)">
+        </button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

@@ -40,7 +40,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TagModule } from 'primeng/tag';
 import { FileUploadModule } from 'primeng/fileupload';
-
+import { DividerModule } from 'primeng/divider';
+import { OwnerComponent } from './owner/owner.component';
 
 
 
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'inventaire', component: HomeComponent},
   {path: 'barcode', component: BarcodeComponent},
   {path: 'users', component: UserComponent},
+  {path: 'owners', component: OwnerComponent}
 
   ];
 
@@ -60,6 +62,7 @@ const routes: Routes = [
     MenubarComponent,
     BarcodeComponent,
     UserComponent,
+    OwnerComponent,
 
 
   ],
@@ -87,7 +90,8 @@ const routes: Routes = [
     CheckboxModule,
     RadioButtonModule,
     TagModule,
-    FileUploadModule
+    FileUploadModule,
+    DividerModule
 
 ],
 

@@ -10,19 +10,19 @@
       </div>
         <div class="col-12">
           <span class="p-float-label">
-          <input pInputText type="email" name="user" id="inputtext" ngModel required #user>
+          <input pInputText type="email" name="email" id="inputtext" [(ngModel)]="email" ngModel required #user autocomplete="email">
           <label for="inputtext"><i class="pi pi-user"></i> E-mail</label>
           </span>
         </div>
         <div class="col-12 input">
           <span class="p-float-label">
-          <input pInputText type="password" name="password" id="inputtext" ngModel required #password>
+          <input pInputText type="password" name="password" [(ngModel)]="senha" id="inputtext" ngModel required #password>
           <label for="inputtext"><i class="pi pi-lock"></i>  Mot de passe</label>
           </span>
         </div>
         <div class="col-12 passcheck">
         <div class="field-checkbox">
-          <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+          <p-checkbox [binary]="true" [(ngModel)]="lembrarMe" name="lembrarMe" inputId="binary"></p-checkbox>
           <label for="binary">Mémoriser</label>
         </div>
         <div class="link">

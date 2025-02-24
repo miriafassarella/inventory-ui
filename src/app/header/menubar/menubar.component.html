@@ -1,37 +1,30 @@
 <div class="flex justify-content-between flex-wrap">
   <div class="boxnav">
-    <p-sidebar [(visible)]="sidebarVisible" class="">
-      <h3>{{loggedUser}}</h3>
+    <p-sidebar [(visible)]="sidebarVisible" class="sidebar">
+      <div class="flex-buttons">
+        <div>
+          <p pButton label="{{loggedUser}}"class="admin-nom p-button-text" ><i style="font-size: 2rem" class="pi pi-user-edit"></i></p>
+
+        </div>
+
+        <hr>
 
 
+        <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false"><i class="pi pi-user-edit"></i>Utilisateurs</button>
 
-      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
-        <ng-template pTemplate="title">Utilisateurs</ng-template>
-        <ng-template pTemplate="content">
+      <button pButton class="button-admin p-button-text" routerLink="/owners" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Proprietaire</button>
+      <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Professionel</button>
+      <p-divider></p-divider>
+      <button pButton class="button-admin p-button-text" routerLink="/inventaire" (click)="sidebarVisible = false" ><i class="pi pi-sitemap"></i>Produits</button>
+      <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Secteur</button>
+      <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Utilisation</button>
 
-        </ng-template>
-      </p-card>
-      <p-card class="clickable-card" header="" routerLink="/inventaire" (click)="sidebarVisible = false">
-        <ng-template pTemplate="title">Produits</ng-template>
-        <ng-template pTemplate="content">
-
-        </ng-template>
-      </p-card>
-      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
-        <ng-template pTemplate="title">Utilisateurs</ng-template>
-        <ng-template pTemplate="content">
-
-        </ng-template>
-      </p-card>
-      <p-card class="clickable-card" header="" routerLink="/users" (click)="sidebarVisible = false">
-        <ng-template pTemplate="title">Utilisateurs</ng-template>
-        <ng-template pTemplate="content">
-
-        </ng-template>
-      </p-card>
-
+      <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Établisement</button>
+      <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Type de produit</button>
+      <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Modèles (Produits)</button>
+    </div>
     </p-sidebar>
-    <button pButton class="sidebar" (click)="sidebarVisible = true" icon="pi pi-bars"></button>
+    <button pButton class="blue-back" (click)="sidebarVisible = true" icon="pi pi-bars"></button>
 
     <img src="assets/logo.png" alt="Logo" class="menu-logo" />
 
@@ -42,9 +35,10 @@
   <div class="boxnav">
     <div class="flex flex-row">
       <p pButton label="{{loggedUser}}" icon="pi pi-user" class="p-button-text"></p>
-      <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="p-button-text"></button>
+      <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="login p-button-text"></button>
     </div>
 
   </div>
 
 </div>
+

@@ -171,7 +171,8 @@
 
    <!--Modal para o botao de modificar produit---------------->
 
-   <p-dialog header="#" [modal]="true" [(visible)]="displayBasic" [style]="{width: '50vw', height: '100vw'}">
+   <p-dialog header="Mofifie le produit {{product.serialNumber}}" [modal]="true" [(visible)]="displayBasic" [style]="{width: '50vw', height: '100vh'}">
+
     <form #productForm="ngForm">
       <p><strong>Numéro de série: {{product.serialNumber}}</strong></p>
       <div class="grid">
@@ -196,14 +197,12 @@
           placeholder="Sélectionnez" [(ngModel)]="product.usability.id" name="usability"></p-dropdown>
         </div>
         <div class="col-12 p-fluid">
-
           <label>Attribué à:</label>
-          <p-dropdown optionLabel="name" optionValue="id" [options]="professionals"
-          placeholder="Sélectionnez" [(ngModel)]="product.professional.id" name="professional"></p-dropdown>
+          <p-dropdown optionLabel="name" optionValue="id"
+           [options]="professionals" placeholder="Sélectionnez" [(ngModel)]="product.professional.id" name="professional"></p-dropdown>
         </div>
         <div class="col-12 p-fluid">
-
-          <label>Établissement</label>
+            <label>Établissement</label>
           <p-dropdown optionLabel="name" optionValue="id"
           [options]="establishmentsAll" [(ngModel)]="product.establishment.id" name="establishment" placeholder="Sélectionnez"></p-dropdown>
         </div>

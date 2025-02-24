@@ -5,31 +5,47 @@ p{
 .center{
   display: flex;
   justify-content: center;
+
 }
 .boxnav{
   width: 250px;
 
 }
-button{
+.button-admin{
+margin-bottom: 15px;
+
+}
+.button-admin:hover{
+  background-color: #c8d9eb !important;
+}
+i{
+  margin-right: 4px;
+}
+.blue-back{
   background-color: 	#191970;
+
+}
+.admin-nom{
+
+  font-weight: bold;
+}
+.login:hover{
+  background-color: #191970 !important;
 }
 
-.clickable-card {
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+.flex-buttons{
+
+display: flex;
+flex-direction: column;
 }
 
-.clickable-card:hover {
-  transform: scale(1.03);
-}
 
-button:hover{
+
+.blue-back:hover{
   background-color: #191970 !important;
   color: #33ffe5 !important;
 }
-.sidebar{
-  margin-right: 25px;
-}
+
 .flex-wrap{
   background-color: #f8f8f8 !important;
   background: var(--surface-overlay); /* Cor de fundo do PrimeNG */
@@ -44,7 +60,4 @@ button:hover{
 }
 
 
-button:hover{
-  background-color: #191970 !important;
-  color: #33ffe5 !important;
-}
+
