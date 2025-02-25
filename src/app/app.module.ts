@@ -42,6 +42,7 @@ import { TagModule } from 'primeng/tag';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DividerModule } from 'primeng/divider';
 import { OwnerComponent } from './owner/owner.component';
+import { ProfessionalComponent } from './professional/professional.component';
 
 
 
@@ -50,7 +51,8 @@ const routes: Routes = [
   { path: 'inventaire', component: HomeComponent},
   {path: 'barcode', component: BarcodeComponent},
   {path: 'users', component: UserComponent},
-  {path: 'owners', component: OwnerComponent}
+  {path: 'owners', component: OwnerComponent},
+  {path: 'professionals', component: ProfessionalComponent}
 
   ];
 
@@ -63,6 +65,7 @@ const routes: Routes = [
     BarcodeComponent,
     UserComponent,
     OwnerComponent,
+    ProfessionalComponent,
 
 
   ],

@@ -18,7 +18,7 @@ export class OwnerComponent implements OnInit {
   filter = new ProductsFilter();
   totalRegisters = 0;
 
-  selected: string = "";
+
 
   @ViewChild('table') table: any;
 
@@ -77,8 +77,9 @@ export class OwnerComponent implements OnInit {
         this.owner = new Owner();
       }
 
-      removeOwner(person: any) {
-        this.ownerService.removeOwner(person.id)
+      removeOwner(owner: any) {
+        {{owner}}
+        this.ownerService.removeOwner(owner.id)
           .then(() => {
 
             this.list();

@@ -1,0 +1,23 @@
+.table{
+
+  background-color: white;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+
+}
+
+button{
+  background-color: 	#191970;
+}
+button:hover{
+  background-color: #191970 !important;
+  color: #33ffe5 !important;
+}
+.action{
+  margin: 2px;
+}
+.checkbox{
+  margin-left: 5px;
+  margin-top: 5px;
+}
