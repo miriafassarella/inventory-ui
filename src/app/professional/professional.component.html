@@ -1,4 +1,9 @@
-<p-toolbar></p-toolbar>
+<p-toolbar>
+
+  <div class="title">
+    <p>Professionnel</p>
+  </div>
+</p-toolbar>
 
 <div class="table">
   <p-table #table [paginator]="true" [lazy]="true" [value]="professionals" [rows]="filter.itemsPage"
@@ -16,6 +21,7 @@
       <tr>
         <th>Name</th>
         <th>Numéro de Matricule</th>
+        <th>Actions</th>
 
       </tr>
     </ng-template>
@@ -23,6 +29,11 @@
       <tr>
         <td class="col-valor-content">{{ professional.name }}</td>
         <td class="col-valor-content">{{professional.registration}}</td>
+
+        <td>
+          <button class="action" pButton icon="pi pi-trash"
+            tooltipPosition="top" (click)="removeConfirm(professional)"></button>
+        </td>
 
       </tr>
     </ng-template>
@@ -42,12 +53,12 @@
       </div>
       <div class="col-12">
         <label>Matricule</label>
-        <input pInputText type="name" name="name" [(ngModel)]="professional.registration" ngModel required>
+        <input pInputText type="name" name="registration" [(ngModel)]="professional.registration" ngModel required>
       </div>
 
 
       <div class="col-12">
-        <button pButton type="submit" label="Enregistrer">
+        <button pButton type="submit" label="Enregistrer" (click)="addProfessional(form)">
         </button>
       </div>
     </div>

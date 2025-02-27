@@ -78,7 +78,7 @@ export class OwnerComponent implements OnInit {
       }
 
       removeOwner(owner: any) {
-        {{owner}}
+
         this.ownerService.removeOwner(owner.id)
           .then(() => {
 
@@ -86,7 +86,8 @@ export class OwnerComponent implements OnInit {
             this.table.first = 0;
             this.messageService.add({ severity: 'success', detail: 'Le propriétaire a été bien supprimé !' })
           }
-          )
+          ).catch(erro => this.handle.handle(erro));
+
       }
 
       removeConfirm(owner: any) {

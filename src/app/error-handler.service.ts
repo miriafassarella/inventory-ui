@@ -34,6 +34,14 @@ export class ErrorHandlerService {
       } catch (e) { }
 
       console.error('Ocorreu um erro', errorResponse);
+
+      /*Modificar pois ficou muito geral - usei para o delete do owner na api*/
+    }else if(errorResponse instanceof HttpErrorResponse && errorResponse.status == 500){
+      msg = 'Le proprietaire ne peut pas être supprimé car il y a des produits que lui appartiennent !';
+      try {
+        msg = errorResponse.error[0].mensagemUsuario;
+      } catch (e) { }
+
     } else {
       msg = 'Erro ao processar serviço remoto. Tente novamente.';
       console.error('Ocorreu um erro', errorResponse);

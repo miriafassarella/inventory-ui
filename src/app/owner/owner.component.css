@@ -21,3 +21,12 @@ button:hover{
   margin-left: 5px;
   margin-top: 5px;
 }
+.title{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Blippo, fantasy;
+  color: #22559c;
+
+}

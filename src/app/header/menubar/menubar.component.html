@@ -7,21 +7,24 @@
 
         </div>
 
-        <hr>
+        <p-divider></p-divider>
 
 
         <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false"><i class="pi pi-user-edit"></i>Utilisateurs</button>
 
       <button pButton class="button-admin p-button-text" routerLink="/owners" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Proprietaire</button>
       <button pButton class="button-admin p-button-text" routerLink="/professionals" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Professionel</button>
-      <p-divider></p-divider>
-      <button pButton class="button-admin p-button-text" routerLink="/inventaire" (click)="sidebarVisible = false" ><i class="pi pi-sitemap"></i>Produits</button>
-      <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Secteur</button>
+
+
+
       <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Utilisation</button>
 
-      <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Établisement</button>
+
       <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Type de produit</button>
       <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Modèles (Produits)</button>
+
+      <p-divider></p-divider>
+      <button pButton class="button-admin p-button-text" routerLink="/inventaire" (click)="sidebarVisible = false" ><i class="pi pi-sitemap"></i>Produits</button>
     </div>
     </p-sidebar>
     <button pButton class="blue-back" (click)="sidebarVisible = true" icon="pi pi-bars"></button>
