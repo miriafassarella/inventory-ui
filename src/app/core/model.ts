@@ -16,8 +16,8 @@ export class Professional{
 }
 
 export class Usability{
-  id?: number;
-  name?: string;
+  id?: number | null;
+  name?: string | null;
 }
 
 export class Owner{

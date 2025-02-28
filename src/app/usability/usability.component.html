@@ -1,0 +1,64 @@
+<p-toolbar>
+
+  <div class="title">
+    <p>Type d'utilisation</p>
+  </div>
+</p-toolbar>
+
+<div class="table">
+  <p-table #table [paginator]="true" [lazy]="true" [value]="usabilities" [rows]="filter.itemsPage"
+    [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button pButton label="Ajouter" (click)="showDialog()" icon="pi pi-plus"></button>
+      </div>
+    </ng-template>
+    <ng-template>
+      <div class="flex">
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+
+        <th>Actions</th>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usability>
+      <tr>
+        <td class="col-valor-content">{{ usability.name }}</td>
+
+        <td>
+          <button class="action" pButton icon="pi pi-trash"
+            tooltipPosition="top" (click)="removeConfirm(usability)"></button>
+        </td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog header="Ajouter un propriétaire" [(visible)]="visible" (onHide)="closeModal()" [modal]="true"
+  [style]="{ width: '25rem' }">
+  <form autocomplete="off" #form="ngForm">
+    <div class="grid p-fluid">
+      <div class="col-12">
+        <div>
+        </div>
+      </div>
+      <div class="col-12">
+        <label>Nom</label>
+        <input pInputText type="name" name="name" [(ngModel)]="usability.name" ngModel required>
+      </div>
+
+
+
+      <div class="col-12">
+        <button pButton type="submit" label="Enregistrer" (click)="addUsability(form)">
+        </button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+

@@ -65,7 +65,7 @@ export class ProfessionalComponent implements OnInit {
   addProfessional(form: NgForm) {
     this.professional.name = form.value.name;
     this.professional.registration = form.value.registration;
-    console.log(this.professional);
+
     this.professionalService.addProfessional(this.professional)
       .then(() => {
         form.reset();

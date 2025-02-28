@@ -1,0 +1,68 @@
+<p-toolbar>
+  <div class="title">
+    <p>Modèle de produit</p>
+  </div>
+</p-toolbar>
+
+<div class="table">
+  <p-table #table [paginator]="true" [lazy]="true" [value]="models" [rows]="filter.itemsPage"
+    [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button pButton label="Ajouter" (click)="showDialog()" icon="pi pi-plus"></button>
+      </div>
+    </ng-template>
+    <ng-template>
+      <div class="flex">
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Type du produit</th>
+
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-model>
+      <tr>
+        <td class="col-valor-content">{{ model.name }}</td>
+        <td class="col-valor-content">{{ model.type.name }}</td>
+
+
+        <td>
+          <button class="action" pButton icon="pi pi-trash"
+            tooltipPosition="top"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog header="Ajouter un propriétaire" [(visible)]="visible" (onHide)="closeModal()" [modal]="true"
+  [style]="{ width: '25rem' }">
+  <form autocomplete="off" #form="ngForm">
+    <div class="grid p-fluid">
+      <div class="col-12">
+        <div>
+        </div>
+      </div>
+      <div class="col-12">
+        <label>Nom</label>
+        <input pInputText type="name" name="name" [(ngModel)]="model.name" ngModel required>
+      </div>
+      <div class="col-12">
+        <label>Type de produit</label>
+        <p-dropdown optionLabel="name" optionValue="id" [(ngModel)]="selected" [options]="types" placeholder="Sélectionnez le type"
+           name="owner" ></p-dropdown>
+
+      </div>
+
+
+
+      <div class="col-12">
+        <button pButton type="submit" label="Enregistrer" (click)="addModel(form)">
+        </button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

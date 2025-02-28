@@ -44,6 +44,13 @@ import { DividerModule } from 'primeng/divider';
 import { OwnerComponent } from './owner/owner.component';
 import { ProfessionalComponent } from './professional/professional.component';
 
+import { ProfessionalService } from './professional/professional.service';
+import { OwnerService } from './owner/owner.service';
+import { UsabilityComponent } from './usability/usability.component';
+import { ModelComponent } from './model/model.component';
+
+
+
 
 
 const routes: Routes = [
@@ -52,7 +59,10 @@ const routes: Routes = [
   {path: 'barcode', component: BarcodeComponent},
   {path: 'users', component: UserComponent},
   {path: 'owners', component: OwnerComponent},
-  {path: 'professionals', component: ProfessionalComponent}
+  {path: 'professionals', component: ProfessionalComponent},
+  {path: 'usabilities', component: UsabilityComponent},
+  {path: 'models', component: ModelComponent},
+
 
   ];
 
@@ -66,6 +76,8 @@ const routes: Routes = [
     UserComponent,
     OwnerComponent,
     ProfessionalComponent,
+    UsabilityComponent,
+    ModelComponent
 
 
   ],
@@ -98,7 +110,9 @@ const routes: Routes = [
 
 ],
 
-providers: [ErrorHandlerService, MessageService,ProductService, ConfirmationService],
+providers: [ErrorHandlerService, MessageService,ProductService, ConfirmationService, ProfessionalService,
+  OwnerService
+],
 bootstrap: [AppComponent]
 })
 export class AppModule { }
