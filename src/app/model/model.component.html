@@ -1,8 +1,4 @@
-<p-toolbar>
-  <div class="title">
-    <p>Modèle de produit</p>
-  </div>
-</p-toolbar>
+
 
 <div class="table">
   <p-table #table [paginator]="true" [lazy]="true" [value]="models" [rows]="filter.itemsPage"
@@ -32,7 +28,7 @@
 
         <td>
           <button class="action" pButton icon="pi pi-trash"
-            tooltipPosition="top"></button>
+            tooltipPosition="top" (click)="removeConfirm(model)"></button>
         </td>
       </tr>
     </ng-template>

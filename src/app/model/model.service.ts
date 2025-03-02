@@ -52,4 +52,10 @@ export class ModelService {
             return this.http.post(this.modelsUrl, model, { headers })
               .toPromise();
           }
+
+          removeModel(id: number): Promise<any> {
+
+            return this.http.delete(`${this.modelsUrl}/${id}`)
+              .toPromise();
+          }
 }

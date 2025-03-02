@@ -86,4 +86,28 @@ export class ModelComponent implements OnInit {
               })
 
           }
+
+          removeModel(model: any) {
+
+            this.modelService.removeModel(model.id)
+              .then(() => {
+
+                this.list();
+                this.table.first = 0;
+                this.messageService.add({ severity: 'success', detail: 'Le modèle de produit a été bien supprimé !' })
+              }
+              ).catch(erro => this.handle.handle(erro));
+
+          }
+          removeConfirm(professional: any) {
+            this.confirmationService.confirm({
+              message: 'Etes-vous sûr de vouloir supprimer?',
+              accept: () => {
+                this.removeModel(professional);
+
+              }
+            })
+
+          }
+
 }

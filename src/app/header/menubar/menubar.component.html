@@ -1,8 +1,8 @@
-<div class="flex justify-content-between flex-wrap">
+<div class="flex justify-content-between flex-wrap container">
   <div class="boxnav">
     <p-sidebar [(visible)]="sidebarVisible" class="sidebar">
       <div class="flex-buttons">
-        <div>
+        <div class="admin">
           <p pButton label="{{loggedUser}}"class="admin-nom p-button-text" ><i style="font-size: 2rem" class="pi pi-user-edit"></i></p>
 
         </div>
@@ -10,21 +10,21 @@
         <p-divider></p-divider>
 
 
-        <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false"><i class="pi pi-user-edit"></i>Utilisateurs</button>
-
-      <button pButton class="button-admin p-button-text" routerLink="/owners" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Proprietaire</button>
-      <button pButton class="button-admin p-button-text" routerLink="/professionals" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Professionel</button>
+        <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false"><i class="pi pi-user-plus"></i>Utilisateurs</button>
 
 
-
-      <button pButton class="button-admin p-button-text" routerLink="/usabilities" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Utilisation</button>
+      <button pButton class="button-admin p-button-text" routerLink="/professionals" (click)="sidebarVisible = false" ><i class="pi pi-users"></i>Professionnels</button>
 
 
 
-      <button pButton class="button-admin p-button-text" routerLink="/models" (click)="sidebarVisible = false" ><i class="pi pi-user-edit"></i>Modèles (Produits)</button>
+      <button pButton class="button-admin p-button-text" routerLink="/usabilities" (click)="sidebarVisible = false" ><i class="pi pi-box"></i>Type d'utilisation</button>
 
+
+
+      <button pButton class="button-admin p-button-text" routerLink="/models" (click)="sidebarVisible = false" ><i class="pi pi-mobile"></i>Modèle de produit</button>
+      <button pButton class="button-admin p-button-text" routerLink="/owners" (click)="sidebarVisible = false" ><i class="pi pi-credit-card"></i>Propriétaire du produit</button>
       <p-divider></p-divider>
-      <button pButton class="button-admin p-button-text" routerLink="/inventaire" (click)="sidebarVisible = false" ><i class="pi pi-sitemap"></i>Produits</button>
+      <button pButton class="button-admin p-button-text" routerLink="/inventaire" (click)="sidebarVisible = false" ><i class="pi pi-home"></i>Inventaire</button>
     </div>
     </p-sidebar>
     <button pButton class="blue-back" (click)="sidebarVisible = true" icon="pi pi-bars"></button>

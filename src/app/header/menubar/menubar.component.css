@@ -7,6 +7,7 @@ p{
   justify-content: center;
 
 }
+
 .boxnav{
   width: 250px;
 
@@ -39,6 +40,11 @@ display: flex;
 flex-direction: column;
 }
 
+.admin p{
+  font-family: Times, Times New Roman, serif;
+  font-size: 20px;
+  color: #A9A9A9;
+}
 
 
 .blue-back:hover{
