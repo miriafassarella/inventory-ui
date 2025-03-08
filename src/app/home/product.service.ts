@@ -7,6 +7,10 @@ import { Establishment, Model, Owner, Product, Professional, Sector, Usability }
 export class ProductsFilter {
   page = 0;
   itemsPage = 7;
+  name?:string;
+  sNumber?:string;
+  modelName?:string;
+  professionalName?:string;
 }
 
 
@@ -17,6 +21,7 @@ export class ProductService {
 
 
   productsUrl = 'http://localhost:8080/products';
+  criteriaListUrl = 'http://localhost:8080/products/search';
   sectorsUrl = 'http://localhost:8080/sectors';
   establishmentsUrl = 'http://localhost:8080/establishments';
   modelsUrl = 'http://localhost:8080/models';
@@ -28,6 +33,8 @@ export class ProductService {
 
 
   constructor(private http: HttpClient) { }
+
+
 
   list(filter: ProductsFilter): Promise<any> {
 
@@ -47,6 +54,32 @@ export class ProductService {
       });
   }
 
+  listWhitCriteria(filter: ProductsFilter): Promise<any> {
+
+    let params = new HttpParams();
+
+
+    if(filter.name != null && filter.name.length > 0){
+      params = params.set('name', filter.name);
+    }
+    if(filter.sNumber != null && filter.sNumber.length > 0){
+      params = params.set('serialNumber', filter.sNumber);
+    }
+    if(filter.modelName != null && filter.modelName.length > 0){
+      params = params.set('modelName', filter.modelName);
+    }
+    if(filter.professionalName != null && filter.professionalName.length > 0){
+      params = params.set('professionalName', filter.professionalName);
+    }
+
+    return this.http.get(`${this.criteriaListUrl}`, { params })
+      .toPromise()
+      .then((response: any) => {
+        const products = response;
+
+        return products;
+      });
+  }
 
 
   addProduct(products: any[]): Promise<any> {

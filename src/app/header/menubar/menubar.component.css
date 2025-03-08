@@ -64,6 +64,8 @@ flex-direction: column;
   color: #A9A9A9;
   font-size: 30px;
 }
-
+.selected {
+  background-color: #191970 !important;
+}
 
 

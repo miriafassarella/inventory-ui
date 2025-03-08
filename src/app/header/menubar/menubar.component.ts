@@ -19,6 +19,8 @@ export class MenubarComponent implements OnInit {
 
   sidebarVisible: boolean = false;
 
+  selectedButton: string = ''; // Variável para armazenar o botão selecionado
+
   constructor(
     private auth: AuthService,
     private handle: ErrorHandlerService,
@@ -29,6 +31,12 @@ export class MenubarComponent implements OnInit {
 
 
   this.loggedUser = this.auth.jwtPayload?.name;
+}
+
+
+
+selectButton(button: string) {
+    this.selectedButton = button;
 }
 
 logout(){

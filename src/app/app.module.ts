@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { RouterModule, Routes } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
+import { FilterService } from 'primeng/api';
+
 
 
 
@@ -111,7 +113,7 @@ const routes: Routes = [
 ],
 
 providers: [ErrorHandlerService, MessageService,ProductService, ConfirmationService, ProfessionalService,
-  OwnerService
+  OwnerService, FilterService
 ],
 bootstrap: [AppComponent]
 })

@@ -6,8 +6,9 @@ import { LazyLoadEvent } from 'primeng/api';
 import { ErrorHandlerService } from '../error-handler.service';
 import { Router } from '@angular/router';
 import { Owner, Product, Professional, Sector, Usability } from '../core/model';
-import { NgForm } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { BarcodeComponent } from '../barcode/barcode.component';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 
 
 @Component({
@@ -16,8 +17,13 @@ import { BarcodeComponent } from '../barcode/barcode.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  nome?:string;
+
+
   totalRegisters = 0;
   filter = new ProductsFilter();
+
   products = [];
   sectors: any[] = [];
   models: any = [];
@@ -30,6 +36,10 @@ export class HomeComponent implements OnInit {
   @Output() product = new Product();
   AjoutProduct: any[] = [];
 
+  nameProduct?: string;
+  sNumber?: string;
+  modelName?: string;
+  professionalName?: string;
 
   /*Pour l'ajout du numéro de série*/
   serialNumber: string[] = [];
@@ -44,6 +54,7 @@ export class HomeComponent implements OnInit {
   owners: any[] = [];
 
   @ViewChild('table') table: any;
+
 
 
   clickedButton: string = ''; //variavel de controle para rastrear o botao
@@ -69,10 +80,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.listSectors();
     this.listModels();
+}
 
-  }
 
   closeModal() {
     this.visible = false;
@@ -82,9 +94,36 @@ export class HomeComponent implements OnInit {
     this.AjoutProduct = []; //limpando o array para envio do produto
   }
 
+  applyFilter(event:any) {
+
+    this.filter.professionalName = event.filters['professionalName']?.value || '';
+    this.filter.sNumber = event.filters['sNumber']?.value || '';
+    this.filter.name = event.filters['name']?.value || '';
+    this.filter.modelName = event.filters['modelName']?.value || '';
+
+    console.log(this.filter.modelName);
+    const page = event.first! / event.rows!;
+
+    // Atualiza dinamicamente os filtros no objeto ProductFilter
+
+    if(this.filter.professionalName != "" || this.filter.sNumber != "" || this.filter.name != "" || this.filter.modelName != ""){
+      this.productService.listWhitCriteria(this.filter)
+    .then((result:any)=>{
+
+        this.products = result;
+
+    })}else if(!this.establishmentsSelected){
+
+      this.list(page)
+    }else{
+      this.listProductForEstablischment(page);
+    }
+
+}
 
 
   list(page = 0) {
+
 
     this.filter.page = page;
     this.productService.list(this.filter)
@@ -98,6 +137,11 @@ export class HomeComponent implements OnInit {
     this.establishmentsSelected = 0;
     this.clickedButton = "list all";
   }
+
+
+
+
+
 
   addProduct() {
 
@@ -142,12 +186,14 @@ export class HomeComponent implements OnInit {
   }
 
   whenChangingPage(event: LazyLoadEvent) {
-    const page = event.first! / event.rows!;
-    if (!this.establishmentsSelected) {
-      this.list(page);
-    } else {
-      this.listProductForEstablischment(page);
-    }
+   //const page = event.first! / event.rows!;
+
+
+
+        this.applyFilter(event);
+
+
+
   }
 
   havePermission( permission: string){

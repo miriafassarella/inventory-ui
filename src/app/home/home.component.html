@@ -50,53 +50,31 @@
           <th class="col-valor-header">Actions</th>
 
         </tr>
-<!--test-->
+
 
 <tr>
+
   <th>
-      <p-columnFilter
-      [showMenu]="false"
-          type="text"
-          field="name"
-          placeholder="Search by name"
-          ariaLabel="Filter Name"
-      ></p-columnFilter>
+      <p-columnFilter [showMenu]="false" field="modelName"  matchMode="contains" placeholder="Modèle"></p-columnFilter>
   </th>
   <th>
-      <p-columnFilter
-      [showMenu]="false"
-          type="text"
-          field="country.name"
-          placeholder="Search by country"
-          ariaLabel="Filter Country"
-      ></p-columnFilter>
+      <p-columnFilter [showMenu]="false" field="name"  placeholder="Nom"></p-columnFilter>
   </th>
   <th>
-    <p-columnFilter
-    [showMenu]="false"
-        type="text"
-        field="country.name"
-        placeholder="Search by country"
-        ariaLabel="Filter Country"
-    ></p-columnFilter>
+    <p-columnFilter [showMenu]="false" field="sNumber" matchMode="contains" placeholder="Numéro de série"></p-columnFilter>
 </th>
 <th>
-  <p-columnFilter
-  [showMenu]="false"
-      type="text"
-      field="country.name"
-      placeholder="Search by country"
-      ariaLabel="Filter Country"
-  ></p-columnFilter>
+  <p-columnFilter [showMenu]="false" field="professionalName" matchMode="contains" placeholder="Enseignant(e)"></p-columnFilter>
 </th>
   <th>
 
     <p-button  label="Export" icon="pi pi-upload" severity="secondary"></p-button>
 
 </th>
+
 </tr>
 
-<!--fimTest-->
+
       </ng-template>
       <ng-template pTemplate="body" let-product>
 
