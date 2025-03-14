@@ -11,6 +11,7 @@ export class ProductsFilter {
   sNumber?:string;
   modelName?:string;
   professionalName?:string;
+  establishmentId?: number;
 }
 
 
@@ -58,6 +59,8 @@ export class ProductService {
 
     let params = new HttpParams();
 
+    params = params.set('page', filter.page);
+    params = params.set('size', filter.itemsPage);
 
     if(filter.name != null && filter.name.length > 0){
       params = params.set('name', filter.name);
@@ -71,13 +74,19 @@ export class ProductService {
     if(filter.professionalName != null && filter.professionalName.length > 0){
       params = params.set('professionalName', filter.professionalName);
     }
+    if(filter.establishmentId != null){
+      params = params.set('establishmentId', filter.establishmentId);
+    }
 
     return this.http.get(`${this.criteriaListUrl}`, { params })
       .toPromise()
       .then((response: any) => {
-        const products = response;
-
-        return products;
+        const products = response['content'];
+        const result = {
+          products,
+          total: response['totalElements']
+        };
+        return result;
       });
   }
 

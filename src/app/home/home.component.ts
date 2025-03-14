@@ -94,23 +94,27 @@ export class HomeComponent implements OnInit {
     this.AjoutProduct = []; //limpando o array para envio do produto
   }
 
-  applyFilter(event:any) {
+  applyFilter(event:any, page = 0) {
 
+    if(this.establishmentsSelected){
+      this.filter.establishmentId = this.establishmentsSelected;
+    }
     this.filter.professionalName = event.filters['professionalName']?.value || '';
     this.filter.sNumber = event.filters['sNumber']?.value || '';
     this.filter.name = event.filters['name']?.value || '';
     this.filter.modelName = event.filters['modelName']?.value || '';
 
     console.log(this.filter.modelName);
-    const page = event.first! / event.rows!;
+   // const page = event.first! / event.rows!;
 
     // Atualiza dinamicamente os filtros no objeto ProductFilter
-
+    this.filter.page = page;
     if(this.filter.professionalName != "" || this.filter.sNumber != "" || this.filter.name != "" || this.filter.modelName != ""){
       this.productService.listWhitCriteria(this.filter)
     .then((result:any)=>{
 
-        this.products = result;
+      this.totalRegisters = result.total;
+      this.products = result.products;
 
     })}else if(!this.establishmentsSelected){
 
@@ -118,6 +122,11 @@ export class HomeComponent implements OnInit {
     }else{
       this.listProductForEstablischment(page);
     }
+
+}
+
+clearFilter() {
+  this.filter.modelName = '';
 
 }
 
@@ -136,6 +145,7 @@ export class HomeComponent implements OnInit {
     this.sectorSelected = 0;
     this.establishmentsSelected = 0;
     this.clickedButton = "list all";
+
   }
 
 
@@ -181,19 +191,16 @@ export class HomeComponent implements OnInit {
         this.totalRegisters = result.total;
         this.products = result.products;
         this.clickedButton = "list establishment"
+
+
       })
       .catch(erro => this.handle.handle(erro));
   }
 
   whenChangingPage(event: LazyLoadEvent) {
-   //const page = event.first! / event.rows!;
+   const page = event.first! / event.rows!;
 
-
-
-        this.applyFilter(event);
-
-
-
+      this.applyFilter(event, page);
   }
 
   havePermission( permission: string){
