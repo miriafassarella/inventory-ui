@@ -3,15 +3,18 @@ p{
 }
 
 .center{
-  display: flex;
-  justify-content: center;
+display: flex;
+justify-content: center;
+align-items: center;
 
+  font-family: Blippo, fantasy;
+  color: #A9A9A9;
+  font-size: 20px;
+  white-space: nowrap;
+  height: 20px;
 }
 
-.boxnav{
-  width: 250px;
 
-}
 .button-admin{
 margin-bottom: 15px;
 

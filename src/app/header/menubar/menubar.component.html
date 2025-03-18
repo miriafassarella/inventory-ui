@@ -1,5 +1,6 @@
-<div class="flex justify-content-between flex-wrap container">
-  <div class="boxnav">
+
+<p-toolbar>
+  <div>
     <p-sidebar [(visible)]="sidebarVisible" class="sidebar">
       <div class="flex-buttons">
         <div class="admin">
@@ -43,16 +44,19 @@
     <img src="assets/logo.png" alt="Logo" class="menu-logo" />
 
   </div>
-  <div class="boxnav center">
-    <p>Inventaire</p>
-  </div>
-  <div class="boxnav">
-    <div class="flex flex-row">
-      <p pButton label="{{loggedUser}}" icon="pi pi-user" class="p-button-text"></p>
-      <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="login p-button-text"></button>
+  <div>
+    <div class="center">
+      <p>Inventaire</p>
     </div>
+  </div>
+
+    <div>
+      <div class="flex flex-row">
+        <p pButton label="{{loggedUser}}" icon="pi pi-user" class="p-button-text"></p>
+        <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="login p-button-text"></button>
+      </div>
 
   </div>
 
-</div>
+</p-toolbar>
 

@@ -22,6 +22,7 @@ export class ProductService {
 
 
   productsUrl = 'http://localhost:8080/products';
+  private apiUrl = 'http://localhost:8080/products/pdf';
   criteriaListUrl = 'http://localhost:8080/products/search';
   sectorsUrl = 'http://localhost:8080/sectors';
   establishmentsUrl = 'http://localhost:8080/establishments';
@@ -53,6 +54,10 @@ export class ProductService {
         };
         return result;
       });
+  }
+
+  downloadPdf() {
+    return this.http.get(this.apiUrl, { responseType: 'blob' }); // 'blob' para lidar com arquivos binários
   }
 
   listWhitCriteria(filter: ProductsFilter): Promise<any> {

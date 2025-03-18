@@ -125,10 +125,7 @@ export class HomeComponent implements OnInit {
 
 }
 
-clearFilter() {
-  this.filter.modelName = '';
 
-}
 
 
   list(page = 0) {
@@ -149,7 +146,21 @@ clearFilter() {
   }
 
 
-
+  generatePdf() {
+    this.productService.downloadPdf().subscribe(response => {
+      const blob = new Blob([response], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'produits.pdf'; // Nome do arquivo
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, error => {
+      console.error('Erro ao baixar o PDF', error);
+    });
+  }
 
 
 

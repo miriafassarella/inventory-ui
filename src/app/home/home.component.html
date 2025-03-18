@@ -24,8 +24,13 @@
         [options]="establishments" name="establishmentsSelected" (onChange)="listProductForEstablischment()"
         [(ngModel)]="establishmentsSelected" placeholder="Établissement" [disabled]="!sectorSelected"></p-dropdown>
     </div>
-    <button pButton label="admin" icon="pi pi-key" class="p-button-text"
-    *ngIf="havePermission('')"></button>
+
+    <span class="p-input-icon-left">
+      <!--<i class="pi pi-search"></i>
+      <input pInputText type="text" placeholder="Buscar...">-->
+  </span>
+    <!--<button pButton label="admin" icon="pi pi-key" class="p-button-text"
+    *ngIf="havePermission('')"></button>-->
 
   </p-toolbar>
 
@@ -66,9 +71,10 @@
 <th>
   <p-columnFilter [showMenu]="false" field="professionalName" matchMode="contains" placeholder="Enseignant(e)"></p-columnFilter>
 </th>
+
   <th>
 
-    <p-button  label="Export" icon="pi pi-upload" severity="secondary"></p-button>
+    <p-button  label="Exporter" icon="pi pi-upload" class="pdf" (onClick)="generatePdf()" severity="secondary"></p-button>
 
 </th>
 
@@ -84,6 +90,7 @@
           <td>{{ product?.name }}</td>
           <td class="col-data-content">{{ product?.serialNumber }}</td>
           <td class="col-data-content">{{ product?.professional?.name }}</td>
+
 
           <td>
             <button class="action" pButton icon="pi pi-pencil" (click)="showBasicDialog(product.id)"></button>

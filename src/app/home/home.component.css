@@ -24,6 +24,9 @@ button:hover{
   text-align: center;
 }
 
+.pdf{
+  width: 200px !important;
+}
 
 /*CSS pour le modal (+Ajouter)*/
 
