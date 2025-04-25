@@ -13,7 +13,7 @@ export class ProfessionalService {
 
   constructor(private http: HttpClient) { }
 
-  professionalsUrl = 'http://localhost:8080/professionals';
+  professionalsUrl = 'http://3.95.208.110:8080/professionals';
 
   list(filter: ProductsFilter): Promise<any> {
 

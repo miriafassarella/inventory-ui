@@ -21,16 +21,16 @@ export class ProductsFilter {
 export class ProductService {
 
 
-  productsUrl = 'http://localhost:8080/products';
-  private apiUrl = 'http://localhost:8080/products/pdf';
-  criteriaListUrl = 'http://localhost:8080/products/search';
-  sectorsUrl = 'http://localhost:8080/sectors';
-  establishmentsUrl = 'http://localhost:8080/establishments';
-  modelsUrl = 'http://localhost:8080/models';
-  variousProductsUrl = 'http://localhost:8080/products/add';
-  professionalsUrl = 'http://localhost:8080/professionals';
-  usabilitiesUrl = 'http://localhost:8080/usabilities';
-  ownersUrl = 'http://localhost:8080/owners';
+  productsUrl = 'http://3.95.208.110:8080/products';
+  private apiUrl = 'http://3.95.208.110:8080/products/pdf';
+  criteriaListUrl = 'http://3.95.208.110:8080/products/search';
+  sectorsUrl = 'http://3.95.208.110:8080/sectors';
+  establishmentsUrl = 'http://3.95.208.110:8080/establishments';
+  modelsUrl = 'http://3.95.208.110:8080/models';
+  variousProductsUrl = 'http://3.95.208.110:8080/products/add';
+  professionalsUrl = 'http://3.95.208.110:8080/professionals';
+  usabilitiesUrl = 'http://3.95.208.110:8080/usabilities';
+  ownersUrl = 'http://3.95.208.110:8080/owners';
 
 
 
@@ -47,6 +47,7 @@ export class ProductService {
     return this.http.get(`${this.productsUrl}`, { params })
       .toPromise()
       .then((response: any) => {
+
         const products = response['content'];
         const result = {
           products,
@@ -56,8 +57,13 @@ export class ProductService {
       });
   }
 
-  downloadPdf() {
-    return this.http.get(this.apiUrl, { responseType: 'blob' }); // 'blob' para lidar com arquivos binários
+  downloadPdf(filter: number) {
+    let params = new HttpParams();
+    if(filter != 0){
+      params = params.set('establishmentId', filter);
+    }
+
+    return this.http.get(this.apiUrl, { params: params, responseType: 'blob' }); // 'blob' para lidar com arquivos binários
   }
 
   listWhitCriteria(filter: ProductsFilter): Promise<any> {

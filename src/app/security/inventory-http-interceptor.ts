@@ -13,23 +13,35 @@ export class InventoryHttpInterceptor implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if(!req.url.includes('/oauth/token') && this.auth.isAccessTokenInvalid()){
+    const isTokenRequest = req.url.includes('/oauth/token');
+    const token = localStorage.getItem('token');
+
+    if(!isTokenRequest  && this.auth.isAccessTokenInvalid()){
       return from(this.auth.procureNewAccessToken())
       .pipe(
         mergeMap(()=>{
+          const newToken = localStorage.getItem('token');
           if (this.auth.isAccessTokenInvalid()) {
             throw new NotAuthenticatedError();
           }
 
-          req = req.clone({
+          const authReq  = req.clone({
             setHeaders: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`
+              Authorization: `Bearer ${newToken}`
             }
           });
-          return next.handle(req);
+          return next.handle(authReq);
         })
       );
     }
+    if (token && !isTokenRequest) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
+
     return next.handle(req);
   }
 }

@@ -13,7 +13,8 @@ export class ProductsFilter {
 })
 export class UserService {
 
-  personsUrl = 'http://localhost:8080/users';
+  personsUrl = 'http://3.95.208.110:8080/users';
+  permissionsUrl = 'http://3.95.208.110:8080/permissions';
 
   constructor(private http: HttpClient) { }
 
@@ -50,5 +51,15 @@ export class UserService {
       .toPromise();
     }
 
+    listPermissions() :Promise<any>{
+      return this.http.get(`${this.permissionsUrl}`)
+      .toPromise()
+      .then(response=>{
+        const permissions = response;
+
+        return permissions;
+      })
+
 }
 
+}

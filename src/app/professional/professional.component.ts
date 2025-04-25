@@ -73,7 +73,7 @@ export class ProfessionalComponent implements OnInit {
         this.list();
         this.table.first = 0;
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Le professionnel a été ajouter avec succès !' });
-      })
+      }).catch(erro => this.handle.handle(erro));
 
   }
 

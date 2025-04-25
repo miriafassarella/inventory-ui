@@ -57,7 +57,7 @@ export class OwnerComponent implements OnInit {
        this.list();
        this.table.first = 0;
        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Le propriétaire a été ajouter avec succès !' });
-      })
+      }).catch(erro => this.handle.handle(erro));
     }
 
   whenChangingPage(event: LazyLoadEvent) {
@@ -91,13 +91,15 @@ export class OwnerComponent implements OnInit {
       }
 
       removeConfirm(owner: any) {
-        this.confirmationService.confirm({
+
+          this.confirmationService.confirm({
           message: 'Etes-vous sûr de vouloir supprimer?',
           accept: () => {
             this.removeOwner(owner);
 
           }
         })
+
 
       }
 

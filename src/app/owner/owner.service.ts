@@ -16,7 +16,7 @@ export class OwnerService {
 
   constructor(private http: HttpClient) { }
 
-  ownersUrl = 'http://localhost:8080/owners';
+  ownersUrl = 'http://3.95.208.110:8080/owners';
 
    list(filter: ProductsFilter): Promise<any> {
 

@@ -7,8 +7,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  tokensRevokeUrl = 'http://localhost:8080/tokens/revoke';
-  oauthTokenUrl = 'http://localhost:8080/oauth/token';
+  tokensRevokeUrl = 'http://3.95.208.110:8080/tokens/revoke';
+  oauthTokenUrl = 'http://3.95.208.110:8080/oauth/token';
   jwtPayload : any;
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {

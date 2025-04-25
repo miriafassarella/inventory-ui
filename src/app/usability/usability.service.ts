@@ -15,7 +15,7 @@ export class UsabilityService {
 
   constructor(private http: HttpClient) { }
 
-   usabilitiesUrl = 'http://localhost:8080/usabilities';
+   usabilitiesUrl = 'http://3.95.208.110:8080/usabilities';
 
     list(filter: UsabilityFilter): Promise<any> {
 

@@ -49,10 +49,15 @@ export class Model{
   type = new Type();
 }
 
+export class Permission{
+  id?: number;
+  description?: string;
+}
+
 export class Person {
     name?: string;
     mail?: string;
     password?: string;
-    permissionsIds?: Number[];
+    permissions?: Permission[];
 }
 

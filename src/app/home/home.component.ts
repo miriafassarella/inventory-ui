@@ -146,8 +146,12 @@ export class HomeComponent implements OnInit {
   }
 
 
-  generatePdf() {
-    this.productService.downloadPdf().subscribe(response => {
+  generatePdf(filter: number) {
+    if(this.filter.establishmentId){
+      filter = this.filter.establishmentId;
+    }
+    console.log(filter);
+    this.productService.downloadPdf(filter).subscribe(response => {
       const blob = new Blob([response], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -158,7 +162,7 @@ export class HomeComponent implements OnInit {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     }, error => {
-      console.error('Erro ao baixar o PDF', error);
+      console.error('Erreur pour télécharger le document PDF', error);
     });
   }
 
@@ -187,7 +191,7 @@ export class HomeComponent implements OnInit {
       .then((response: any) => {
         this.productsAll = response;
 
-      })
+      }).catch(erro => this.handle.handle(erro));
   }
 
 
@@ -226,7 +230,7 @@ export class HomeComponent implements OnInit {
 
       }
 
-      );
+      ).catch(erro => this.handle.handle(erro));
 
     }
 
@@ -236,7 +240,7 @@ export class HomeComponent implements OnInit {
       .then(establishments => {
         this.establishments = establishments.map((e: any) => ({ name: e.name, id: e.id }));
 
-      })
+      }).catch(erro => this.handle.handle(erro));
     }else{
       this.list();
     }
@@ -244,10 +248,11 @@ export class HomeComponent implements OnInit {
   }
 
   listModels() {
+
     this.productService.listModels()
       .then(models => {
         this.models = models.map((m: any) => ({ name: m.name, id: m.id }));
-      })
+      }).catch(erro => this.handle.handle(erro));
   }
 
 
@@ -255,7 +260,7 @@ export class HomeComponent implements OnInit {
     this.productService.listEstablishmentsAll()
       .then(establishment => {
         this.establishmentsAll = establishment.map((e: any) => ({ name: e.name, id: e.id }));
-      })
+      }).catch(erro => this.handle.handle(erro));
   }
   get productArray(): any[] {
     return this.product ? [this.product] : [];
@@ -374,12 +379,12 @@ export class HomeComponent implements OnInit {
     }
     if (existingSerie || this.dbSerie) {
       this.newCode = '';
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Numéro de série já existe!' });
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Le numéro de série existe déjà !' });
       this.dbSerie = false;
     } else if (!this.modelSelected) {
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Il faut ajouter le modèle du produit !' });
+      this.messageService.add({ severity: 'warn', summary: 'Atention', detail: 'Il faut ajouter le modèle du produit !' });
     } else if (!this.stockSelected) {
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Il faut ajouter le Secteur !' });
+      this.messageService.add({ severity: 'warn', summary: 'Atention', detail: 'Il faut ajouter le Secteur !' });
     } else {
       this.product.serialNumber = this.newCode.trim();
       this.product.model.id = this.modelSelected;
@@ -387,9 +392,10 @@ export class HomeComponent implements OnInit {
 
       const partialProduct = {
         serialNumber: this.product.serialNumber,
-        model: { id: this.product.model.id, name: this.models[(this.modelSelected - 1)].name },
+        model: { id: this.product.model.id, name: this.product.model.name },
         establishment: { id: this.product.establishment.id }
       }
+      console.log(this.modelSelected);
       this.AjoutProduct.push(partialProduct);
 
       this.newCode = ''; // Limpa o campo de input
@@ -475,7 +481,7 @@ export class HomeComponent implements OnInit {
 
         this.messageService.add({ severity: 'success', detail: 'Le produit a été bien supprimé !' })
       }
-      )
+      ).catch(erro => this.handle.handle(erro));
   };
 
 

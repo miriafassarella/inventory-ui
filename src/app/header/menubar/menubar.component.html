@@ -1,6 +1,6 @@
 
 <p-toolbar>
-  <div>
+  <div class="tube">
     <p-sidebar [(visible)]="sidebarVisible" class="sidebar">
       <div class="flex-buttons">
         <div class="admin">
@@ -45,13 +45,13 @@
 
   </div>
   <div>
-    <div class="center">
+    <div class="center tube">
       <p>Inventaire</p>
     </div>
   </div>
 
     <div>
-      <div class="flex flex-row">
+      <div class="flex flex-row tube">
         <p pButton label="{{loggedUser}}" icon="pi pi-user" class="p-button-text"></p>
         <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="login p-button-text"></button>
       </div>

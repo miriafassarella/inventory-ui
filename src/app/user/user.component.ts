@@ -1,5 +1,6 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Person } from '../core/model';
+import { Permission, Person } from '../core/model';
 import { ProductsFilter, UserService } from './user.service';
 import { ErrorHandlerService } from '../error-handler.service';
 import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/api';
@@ -17,6 +18,7 @@ export class UserComponent implements OnInit {
   filter = new ProductsFilter();
   totalRegisters = 0;
   persons = [];
+  permissions = [];
   visible?: boolean;
   selected: string = "";
 
@@ -30,6 +32,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.list();
+    this.listPermissions();
   }
 
   list(page = 0) {
@@ -39,7 +42,7 @@ export class UserComponent implements OnInit {
       .then(result => {
         this.totalRegisters = result.total;
         this.persons = result.users;
-        console.log(this.persons);
+
       })
       .catch(erro => this.handle.handle(erro));
 
@@ -63,15 +66,24 @@ export class UserComponent implements OnInit {
       this.person = new Person();
     }
 
+    listPermissions(){
+      this.userService.listPermissions()
+      .then((result: any)=>{
+        this.permissions = result;
+
+        })
+    }
 
     addUser(form: NgForm){
      this.person.name = form.value.name;
      this.person.mail = form.value.email;
      this.person.password = form.value.password;
      if(this.selected === "option1"){
-      this.person.permissionsIds = [1, 2, 3, 4, 5, 6, 7, 8]; /*API - à changer*/
+
+      //this.person.permissions = this.permissions;
+
      }else{
-      this.person.permissionsIds = [5, 6, 7, 8];/*API - à changer */
+      //this.person.permissions = [5, 6, 7, 8];/*API - à changer */
      }
 
 
@@ -80,8 +92,9 @@ export class UserComponent implements OnInit {
       .then(()=>{
        form.reset();
        this.visible = false;
+       this.list();
        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'L\'utilisateur a été ajouter avec succès !' });
-      })
+      }).catch(erro => this.handle.handle(erro));
 
     }
 
@@ -93,7 +106,7 @@ export class UserComponent implements OnInit {
           this.table.first = 0;
           this.messageService.add({ severity: 'success', detail: 'L\'utilisateur a été bien supprimé !' })
         }
-        )
+        ).catch(erro => this.handle.handle(erro));
     }
     removeConfirm(person: any) {
       this.confirmationService.confirm({

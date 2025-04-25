@@ -13,8 +13,8 @@ export class ModelService {
 
   constructor(private http: HttpClient) {}
 
-  modelsUrl = 'http://localhost:8080/models';
-  typesUrl = 'http://localhost:8080/types';
+  modelsUrl = 'http://3.95.208.110:8080/models';
+  typesUrl = 'http://3.95.208.110:8080/types';
 
      list(filter: ModelFilter): Promise<any> {
 

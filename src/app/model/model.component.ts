@@ -51,7 +51,7 @@ export class ModelComponent implements OnInit {
     this.modelService.listTypes()
     .then(result=>{
       this.types = result;
-    })
+    }).catch(erro => this.handle.handle(erro));
   }
 
    whenChangingPage(event: LazyLoadEvent) {
@@ -83,7 +83,7 @@ export class ModelComponent implements OnInit {
                 this.list();
                 this.table.first = 0;
                 this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Le modèle de produit a été ajouter avec succès !' });
-              })
+              }).catch(erro => this.handle.handle(erro));
 
           }
 

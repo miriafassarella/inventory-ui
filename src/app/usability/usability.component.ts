@@ -37,7 +37,7 @@ export class UsabilityComponent implements OnInit {
       this.totalRegisters = result.total;
       this.usabilities = result.usabilities;
 
-    })
+    }).catch(erro => this.handle.handle(erro));
   }
 
   whenChangingPage(event: LazyLoadEvent) {
@@ -66,7 +66,7 @@ export class UsabilityComponent implements OnInit {
             this.list();
             this.table.first = 0;
             this.messageService.add({ severity: 'success', summary: 'Success', detail: "Le type d'utilisation a été ajouter avec succès !" });
-          })
+          }).catch(erro => this.handle.handle(erro));
 
 }
 
