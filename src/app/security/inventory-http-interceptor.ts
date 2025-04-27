@@ -13,14 +13,15 @@ export class InventoryHttpInterceptor implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const isTokenRequest = req.url.includes('/oauth/token');
-    const token = localStorage.getItem('token');
+    const isTokenRequest = req.url.includes('/oauth/token'); //ajouté
+    const token = localStorage.getItem('token');//ajouté
 
+    //isTokenRequest a été ajouté
     if(!isTokenRequest  && this.auth.isAccessTokenInvalid()){
       return from(this.auth.procureNewAccessToken())
       .pipe(
         mergeMap(()=>{
-          const newToken = localStorage.getItem('token');
+          const newToken = localStorage.getItem('token'); //ajouté
           if (this.auth.isAccessTokenInvalid()) {
             throw new NotAuthenticatedError();
           }
@@ -34,6 +35,7 @@ export class InventoryHttpInterceptor implements HttpInterceptor{
         })
       );
     }
+    //if ajouté-----------------------------------------
     if (token && !isTokenRequest) {
       req = req.clone({
         setHeaders: {
@@ -41,7 +43,7 @@ export class InventoryHttpInterceptor implements HttpInterceptor{
         }
       });
     }
-
+//partir principal qui a éte modifié en haut
     return next.handle(req);
   }
 }

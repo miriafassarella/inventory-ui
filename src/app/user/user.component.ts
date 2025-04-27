@@ -1,6 +1,8 @@
+import { Permission } from './../core/model';
+
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Permission, Person } from '../core/model';
+import { Person } from '../core/model';
 import { ProductsFilter, UserService } from './user.service';
 import { ErrorHandlerService } from '../error-handler.service';
 import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/api';
@@ -18,7 +20,7 @@ export class UserComponent implements OnInit {
   filter = new ProductsFilter();
   totalRegisters = 0;
   persons = [];
-  permissions = [];
+  permissions =  [];
   visible?: boolean;
   selected: string = "";
 
@@ -32,7 +34,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.list();
-    this.listPermissions();
+
   }
 
   list(page = 0) {
@@ -66,13 +68,13 @@ export class UserComponent implements OnInit {
       this.person = new Person();
     }
 
-    listPermissions(){
+    /*listPermissions(){
       this.userService.listPermissions()
       .then((result: any)=>{
         this.permissions = result;
 
         })
-    }
+    }*/
 
     addUser(form: NgForm){
      this.person.name = form.value.name;
@@ -80,10 +82,12 @@ export class UserComponent implements OnInit {
      this.person.password = form.value.password;
      if(this.selected === "option1"){
 
-      //this.person.permissions = this.permissions;
+      this.person.permissionsIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+        18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33];
 
      }else{
-      //this.person.permissions = [5, 6, 7, 8];/*API - à changer */
+      this.person.permissionsIds = [5,6,7,8];
+
      }
 
 

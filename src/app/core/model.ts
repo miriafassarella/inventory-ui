@@ -58,6 +58,6 @@ export class Person {
     name?: string;
     mail?: string;
     password?: string;
-    permissions?: Permission[];
+    permissionsIds?: any[];
 }
 

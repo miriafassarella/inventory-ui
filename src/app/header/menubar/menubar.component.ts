@@ -31,6 +31,7 @@ export class MenubarComponent implements OnInit {
 
 
   this.loggedUser = this.auth.jwtPayload?.name;
+
 }
 
 

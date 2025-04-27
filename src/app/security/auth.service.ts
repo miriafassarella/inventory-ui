@@ -32,7 +32,7 @@ export class AuthService {
         if(response.status === 400){
 
           if(response.error.error === 'invalid_grant'){
-            return Promise.reject('Usuário inexistente ou senha invalida !');
+            return Promise.reject("L'utilisateur n'existe pas ou le mot de passe est invalide !");
 
           }
           }
