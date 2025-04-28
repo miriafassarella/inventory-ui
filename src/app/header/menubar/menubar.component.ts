@@ -46,5 +46,8 @@ logout(){
     this.router.navigate(['/login']);
   }).catch(erro => this.handle.handle(erro));
 }
+notPermission(permission: string){
+  return !this.auth.havePermission(permission);
+}
 
 }

@@ -39,7 +39,7 @@
     </div>
     </p-sidebar>
 
-    <button pButton class="blue-back" (click)="sidebarVisible = true" icon="pi pi-bars"></button>
+    <button pButton class="blue-back" (click)="sidebarVisible = true" [disabled]="notPermission('ROLE_SEARCH_USER')" icon="pi pi-bars"></button>
 
     <!--<img src="assets/logo.png" alt="Logo" class="menu-logo" />-->
 
