@@ -5,7 +5,6 @@ import { from, mergeMap, Observable } from "rxjs";
 
 export class NotAuthenticatedError { }
 
-
 @Injectable()
 export class InventoryHttpInterceptor implements HttpInterceptor{
 
@@ -31,7 +30,9 @@ export class InventoryHttpInterceptor implements HttpInterceptor{
               Authorization: `Bearer ${newToken}`
             }
           });
+
           return next.handle(authReq);
+
         })
       );
     }

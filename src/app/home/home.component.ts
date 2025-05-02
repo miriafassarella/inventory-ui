@@ -7,9 +7,6 @@ import { ErrorHandlerService } from '../error-handler.service';
 import { Router } from '@angular/router';
 import { Owner, Product, Professional, Sector, Usability } from '../core/model';
 import { FormControl, NgForm } from '@angular/forms';
-import { BarcodeComponent } from '../barcode/barcode.component';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-
 
 @Component({
   selector: 'app-home',
@@ -18,12 +15,9 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  nome?:string;
-
-
+  nome?: string;
   totalRegisters = 0;
   filter = new ProductsFilter();
-
   products = [];
   sectors: any[] = [];
   models: any = [];
@@ -46,7 +40,6 @@ export class HomeComponent implements OnInit {
   newCode: string = '';
   dbSerie?: boolean;
 
-
   productsAll: any[] = [];
   establishmentsAll!: any[];
   professionals!: any[];
@@ -55,19 +48,13 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('table') table: any;
 
-
-
   clickedButton: string = ''; //variavel de controle para rastrear o botao
-
-
 
   visible: boolean = false;
   displayBasic: boolean = false;
   displayBasic2: boolean = false;
   stock: any = [{ name: 'Centre de services East-Angus - 099', id: 22 }, { name: 'Centre de services Coatikook - 097', id: 33 }, { name: 'Centre de services Lac-Mégantic - 098', id: 13 }
-
   ];
-
 
   constructor(private productService: ProductService,
     private auth: AuthService,
@@ -76,15 +63,12 @@ export class HomeComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) {
-
   }
 
   ngOnInit(): void {
-
     this.listSectors();
     this.listModels();
-}
-
+  }
 
   closeModal() {
     this.visible = false;
@@ -94,43 +78,33 @@ export class HomeComponent implements OnInit {
     this.AjoutProduct = []; //limpando o array para envio do produto
   }
 
-  applyFilter(event:any, page = 0) {
-
-    if(this.establishmentsSelected){
+  applyFilter(event: any, page = 0) {
+    if (this.establishmentsSelected) {
       this.filter.establishmentId = this.establishmentsSelected;
     }
     this.filter.professionalName = event.filters['professionalName']?.value || '';
     this.filter.sNumber = event.filters['sNumber']?.value || '';
     this.filter.name = event.filters['name']?.value || '';
     this.filter.modelName = event.filters['modelName']?.value || '';
-
-    console.log(this.filter.modelName);
-   // const page = event.first! / event.rows!;
-
     // Atualiza dinamicamente os filtros no objeto ProductFilter
     this.filter.page = page;
-    if(this.filter.professionalName != "" || this.filter.sNumber != "" || this.filter.name != "" || this.filter.modelName != ""){
+    if (this.filter.professionalName != "" || this.filter.sNumber != "" || this.filter.name != "" || this.filter.modelName != "") {
       this.productService.listWhitCriteria(this.filter)
-    .then((result:any)=>{
+        .then((result: any) => {
 
-      this.totalRegisters = result.total;
-      this.products = result.products;
+          this.totalRegisters = result.total;
+          this.products = result.products;
 
-    })}else if(!this.establishmentsSelected){
+        })
+    } else if (!this.establishmentsSelected) {
 
       this.list(page)
-    }else{
+    } else {
       this.listProductForEstablischment(page);
     }
-
-}
-
-
-
+  }
 
   list(page = 0) {
-
-
     this.filter.page = page;
     this.productService.list(this.filter)
       .then(result => {
@@ -138,16 +112,13 @@ export class HomeComponent implements OnInit {
         this.products = result.products;
       })
       .catch(erro => this.handle.handle(erro));
-
     this.sectorSelected = 0;
     this.establishmentsSelected = 0;
     this.clickedButton = "list all";
-
   }
 
-
   generatePdf(filter: number) {
-    if(this.filter.establishmentId){
+    if (this.filter.establishmentId) {
       filter = this.filter.establishmentId;
     }
     console.log(filter);
@@ -166,95 +137,71 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
-
   addProduct() {
-
     if (this.modelSelected) {
       this.productService.addProduct(this.AjoutProduct)
         .then(() => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Les produits ont été ajoutés avec succès !' });
           this.closeModal();
-
         }).catch(erro => this.handle.handle(erro));
     } else {
       this.messageService.add({ severity: 'error', summary: 'Attention', detail: 'Il faut ajouter au moins un produit !' });
     }
-
-
-
-
   }
 
   listProductsAll() {
     this.productService.listProductsAll()
       .then((response: any) => {
         this.productsAll = response;
-
       }).catch(erro => this.handle.handle(erro));
   }
 
-
-
-
-
   listProductForEstablischment(page = 0) {
-
     this.filter.page = page;
     this.productService.listProductForEstablishment(this.filter, this.establishmentsSelected)
       .then(result => {
         this.totalRegisters = result.total;
         this.products = result.products;
         this.clickedButton = "list establishment"
-
-
       })
       .catch(erro => this.handle.handle(erro));
   }
 
   whenChangingPage(event: LazyLoadEvent) {
-   const page = event.first! / event.rows!;
-
-      this.applyFilter(event, page);
+    const page = event.first! / event.rows!;
+    this.applyFilter(event, page);
   }
 
-  havePermission( permission: string){
+  havePermission(permission: string) {
     return !this.auth.havePermission(permission);
   }
 
   listSectors() {
     this.productService.listSectors()
       .then((result: any) => {
-        this.sectors = result.map((s: any) => ({ name: s.name, id: s.id }), {name: "Dans tous les secteurs", id: 3});
-        this.sectors.push({name: "Dans tous les secteurs", id: 0, icone: 'pi pi-lock-open'});
-
+        this.sectors = result.map((s: any) => ({ name: s.name, id: s.id }), { name: "Dans tous les secteurs", id: 3 });
+        this.sectors.push({ name: "Dans tous les secteurs", id: 0, icone: 'pi pi-lock-open' });
       }
-
       ).catch(erro => this.handle.handle(erro));
-
-    }
+  }
 
   listEstablishments() {
-    if(this.sectorSelected !== 0){
-    this.productService.listEstablishments(this.sectorSelected!)
-      .then(establishments => {
-        this.establishments = establishments.map((e: any) => ({ name: e.name, id: e.id }));
-
-      }).catch(erro => this.handle.handle(erro));
-    }else{
+    if (this.sectorSelected !== 0) {
+      this.productService.listEstablishments(this.sectorSelected!)
+        .then(establishments => {
+          this.establishments = establishments.map((e: any) => ({ name: e.name, id: e.id }));
+        }).catch(erro => this.handle.handle(erro));
+    } else {
       this.list();
     }
-    console.log(this.sectorSelected);
   }
 
   listModels() {
-
     this.productService.listModels()
       .then(models => {
         this.models = models.map((m: any) => ({ name: m.name, id: m.id }));
       }).catch(erro => this.handle.handle(erro));
   }
-
 
   listEstablishmentsAll() {
     this.productService.listEstablishmentsAll()
@@ -266,33 +213,27 @@ export class HomeComponent implements OnInit {
     return this.product ? [this.product] : [];
   }
 
-
   showDialog() {
     this.visible = true;
   }
+
   showBasicDialog(id: number) {
     this.displayBasic = true;
-
     this.listEstablishmentsAll();
-
-
     this.listProfessionals();
     this.listUsabilities();
     this.listOwners();
-
     this.listForId(id);
-
   }
+
   showDialog2(id: number) {
     this.displayBasic2 = true;
     this.listForId(id);
-
   }
 
   listForId(id: number) {
     this.productService.searchById(id)
       .then(product => {
-
         if (product.name) {
           this.product.name = product.name;
         } else {
@@ -308,7 +249,6 @@ export class HomeComponent implements OnInit {
         } else {
           this.product.professional = new Professional();
         }
-
         if (product.usability) {
           this.product.usability = product.usability
         } else {
@@ -321,51 +261,34 @@ export class HomeComponent implements OnInit {
         this.product.id = product.id;
         this.product.model = product.model;
         this.product.dpurchase = product.dpurchase;
-
-
-
       }).catch(erro => this.handle.handle(erro));
-
   }
 
   listProfessionals() {
     this.productService.listProfessionals()
       .then(professional => {
         this.professionals = professional.map((e: any) => ({ name: e.name, id: e.id })
-
         );
       }).catch(erro => this.handle.handle(erro));
-
-
   }
 
   listUsabilities() {
     this.productService.listUsabilities()
       .then(usability => {
         this.usabilities = usability.map((e: any) => ({ name: e.name, id: e.id })
-
         );
       }).catch(erro => this.handle.handle(erro));
-
-
   }
 
   listOwners() {
     this.productService.listOwners()
       .then(owner => {
         this.owners = owner.map((e: any) => ({ name: e.name, id: e.id })
-
         );
       }).catch(erro => this.handle.handle(erro));
-
   }
-
-
-
-
   /*Méthodes pour l'ajout du numéro de série */
   codeAdd() {
-
     if (!this.newCode) {
       this.messageService.add({ severity: 'warn', summary: 'Atenção', detail: 'Le champ (Número de Série) ne peut pas être vide !' });
       return;
@@ -395,21 +318,17 @@ export class HomeComponent implements OnInit {
         model: { id: this.product.model.id, name: this.product.model.name },
         establishment: { id: this.product.establishment.id }
       }
-      console.log(this.modelSelected);
+
       this.AjoutProduct.push(partialProduct);
-
       this.newCode = ''; // Limpa o campo de input
-
     }
   }
 
   codeRemove(index: number) {
     this.AjoutProduct.splice(index, 1);
-
   }
 
   updateProduct(form: NgForm) {
-
     let productUpdate = {
       id: this.product.id,
       name: form.value.name,
@@ -421,37 +340,29 @@ export class HomeComponent implements OnInit {
       establishment: this.product.establishment
     };
 
-
-
-
     if (productUpdate.owner === undefined) {
       productUpdate.owner = null;
 
     } else {
       productUpdate.owner = { id: this.product.owner.id };
-
     }
 
     if (form.value.usability === undefined) {
       productUpdate.usability = null;
-    } else {
 
+    } else {
       productUpdate.usability = { id: this.product.usability.id };
+
     }
     if (form.value.professional === undefined) {
       productUpdate.professional = null;
-    } else {
 
+    } else {
       productUpdate.professional = { id: this.product.professional.id };
     }
 
-
-
-
-
     this.productService.updateProduct(productUpdate)
       .then((product) => {
-        //this.product = product;
 
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Le produit a été modifié avec succès !' });
         this.displayBasic = false;
@@ -462,11 +373,8 @@ export class HomeComponent implements OnInit {
           this.listProductForEstablischment();
           this.table.first = 0; //usado para ir para a pagina 1 quando o produto for alterado.
         }
-
-
       }).catch(erro => this.handle.handle(erro));
   }
-
 
   removeProduct(product: any) {
     this.productService.removeProduct(product.id)
@@ -478,21 +386,17 @@ export class HomeComponent implements OnInit {
           this.listProductForEstablischment();
           this.table.first = 0;
         }
-
         this.messageService.add({ severity: 'success', detail: 'Le produit a été bien supprimé !' })
       }
       ).catch(erro => this.handle.handle(erro));
   };
-
 
   removeConfirm(product: any) {
     this.confirmationService.confirm({
       message: 'Etes-vous sûr de vouloir supprimer?',
       accept: () => {
         this.removeProduct(product);
-
       }
     })
-
   }
 }

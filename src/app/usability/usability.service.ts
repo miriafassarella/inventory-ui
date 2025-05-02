@@ -2,9 +2,8 @@ import { Usability } from './../core/model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-export class UsabilityFilter{
-
-  page =0;
+export class UsabilityFilter {
+  page = 0;
   itemsPage = 4;
 }
 
@@ -15,38 +14,35 @@ export class UsabilityService {
 
   constructor(private http: HttpClient) { }
 
-   usabilitiesUrl = 'http://3.95.208.110:8080/usabilities';
+  usabilitiesUrl = 'http://3.95.208.110:8080/usabilities';
 
-    list(filter: UsabilityFilter): Promise<any> {
+  list(filter: UsabilityFilter): Promise<any> {
 
-      let params = new HttpParams();
-      params = params.set('page', filter.page);
-      params = params.set('size', filter.itemsPage);
+    let params = new HttpParams();
+    params = params.set('page', filter.page);
+    params = params.set('size', filter.itemsPage);
 
-      return this.http.get(`${this.usabilitiesUrl}`, { params })
-        .toPromise()
-        .then((response: any) => {
-          const usabilities = response['content'];
-          const result = {
-            usabilities,
-            total: response['totalElements']
-          };
-          return result;
-        });
-    }
+    return this.http.get(`${this.usabilitiesUrl}`, { params })
+      .toPromise()
+      .then((response: any) => {
+        const usabilities = response['content'];
+        const result = {
+          usabilities,
+          total: response['totalElements']
+        };
+        return result;
+      });
+  }
 
-    addUsability(usability: any): Promise<any> {
-        const headers = new HttpHeaders()
-          .append('Content-Type', 'application/json');
+  addUsability(usability: any): Promise<any> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+    return this.http.post(this.usabilitiesUrl, usability, { headers })
+      .toPromise();
+  }
 
-
-        return this.http.post(this.usabilitiesUrl, usability, { headers })
-          .toPromise();
-      }
-
-      removeUsability(id: number): Promise<any> {
-
-        return this.http.delete(`${this.usabilitiesUrl}/${id}`)
-          .toPromise();
-      }
+  removeUsability(id: number): Promise<any> {
+    return this.http.delete(`${this.usabilitiesUrl}/${id}`)
+      .toPromise();
+  }
 }

@@ -18,7 +18,6 @@ export function tokenGetter(): string {
   return localStorage.getItem('token')!;
 }
 
-
 @NgModule({
   declarations: [LoginFormComponent],
   imports: [

@@ -36,14 +36,11 @@ export class ProfessionalService {
   addProfessional(professional: any): Promise<any> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/json');
-
-
     return this.http.post(this.professionalsUrl, professional, { headers })
       .toPromise();
   }
 
   removeProfessional(id: number): Promise<any> {
-
     return this.http.delete(`${this.professionalsUrl}/${id}`)
       .toPromise();
   }

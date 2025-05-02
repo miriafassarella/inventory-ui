@@ -9,6 +9,7 @@ export class Establishment{
   enumber?: string;
   sector = new Sector();
 }
+
 export class Professional{
   id?: number;
   name?: string;
@@ -36,7 +37,6 @@ export class Product{
   professional = new Professional();
   establishment = new Establishment();
 }
-
 
 export class Type{
   id?: number;

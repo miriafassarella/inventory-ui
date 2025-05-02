@@ -1,105 +1,68 @@
-
-
-
-
 <div class="table">
-  <p-table #table [paginator]="true" [lazy]="true"
-  [value]="persons"[rows]="filter.itemsPage"
-  [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
-
-  <ng-template pTemplate="caption">
-    <div class="flex">
-      <button pButton label="Ajouter" (click)="showDialog()" icon="pi pi-plus"></button>
-    </div>
-</ng-template>
-
+  <p-table #table [paginator]="true" [lazy]="true" [value]="persons" [rows]="filter.itemsPage"
+    [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button pButton label="Ajouter" (click)="showDialog()" icon="pi pi-plus"></button>
+      </div>
+    </ng-template>
     <ng-template>
       <div class="flex">
-
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th>Name</th>
         <th>E-mail</th>
-
-
         <th>Actions</th>
-
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-person>
-
       <tr>
-
         <td class="col-valor-content">{{ person?.name }}</td>
         <td class="col-valor-content">{{ person?.mail }}</td>
-
         <td>
-
-
-          <button class="action" (click)="removeConfirm(person)" pButton icon="pi pi-trash" tooltipPosition="top"
-        ></button>
+          <button class="action" (click)="removeConfirm(person)" pButton icon="pi pi-trash"
+            tooltipPosition="top"></button>
         </td>
-
       </tr>
     </ng-template>
-
-
   </p-table>
 </div>
-
-
-<p-dialog header="Ajouter un utilisateur" [(visible)]="visible" (onHide)="closeModal()" [modal]="true" [style]="{ width: '25rem' }">
-
-
-
-
+<p-dialog header="Ajouter un utilisateur" [(visible)]="visible" (onHide)="closeModal()" [modal]="true"
+  [style]="{ width: '25rem' }">
   <form autocomplete="off" #form="ngForm">
     <div class="grid p-fluid">
       <div class="col-12">
-      <div>
-
+        <div>
+        </div>
       </div>
-    </div>
       <div class="col-12">
         <label>Nom</label>
-        <input pInputText type="name" name="name" [(ngModel)]="person.name" ngModel required >
-
-
+        <input pInputText type="name" name="name" [(ngModel)]="person.name" ngModel required>
       </div>
       <div class="col-12">
-
         <label> E-mail</label>
-        <input pInputText type="email" name="email" [(ngModel)]="person.mail" ngModel required >
-
-
+        <input pInputText type="email" name="email" [(ngModel)]="person.mail" ngModel required>
       </div>
       <div class="col-12 input">
         <label>Mot de passe</label>
         <input pInputText type="password" name="password" [(ngModel)]="person.password" ngModel required>
-
-
       </div>
-
-       <div class="grid checkbox">
+      <div class="grid checkbox">
         <div class=" col-6 field-checkbox">
           <p-radioButton name="option" value="option1" [(ngModel)]="selected"></p-radioButton>
           <label>Autorisation administrateur</label>
         </div>
-
         <div class=" col-6 field-checkbox">
-        <p-radioButton name="option" value="option2" [(ngModel)]="selected"></p-radioButton>
-        <label>Autorisation utilisateur</label>
+          <p-radioButton name="option" value="option2" [(ngModel)]="selected"></p-radioButton>
+          <label>Autorisation utilisateur</label>
         </div>
-
       </div>
-
-
       <div class="col-12">
         <button pButton type="submit" label="Enregistrer" (click)="addUser(form)">
         </button>
       </div>
     </div>
-</form>
+  </form>
 </p-dialog>

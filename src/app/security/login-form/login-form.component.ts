@@ -1,10 +1,7 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ErrorHandlerService } from 'src/app/error-handler.service';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-login-form',
@@ -23,14 +20,12 @@ export class LoginFormComponent implements OnInit {
     private router: Router
   ) { }
 
-
   ngOnInit(): void {
     const emailSalvo = localStorage.getItem('email');
     if (emailSalvo) {
       this.email = emailSalvo;
       this.lembrarMe = true;
     }
-
   }
 
   onLogin() {
@@ -39,20 +34,16 @@ export class LoginFormComponent implements OnInit {
     } else {
       localStorage.removeItem('email'); // Remove o e-mail salvo se desmarcar
     }
-
     console.log('Login realizado!');
   }
 
-login(usuario: string, senha: string){
-  this.auth.login(usuario, senha)
-  .then(()=>{
-
-    this.router.navigate(['/inventaire']);
-
-  })
-  .catch(erro => {
-    this.errorHandler.handle(erro);
-  })
-}
-
+  login(usuario: string, senha: string) {
+    this.auth.login(usuario, senha)
+      .then(() => {
+        this.router.navigate(['/inventaire']);
+      })
+      .catch(erro => {
+        this.errorHandler.handle(erro);
+      })
+  }
 }

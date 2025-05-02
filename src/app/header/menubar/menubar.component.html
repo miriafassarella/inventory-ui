@@ -1,62 +1,46 @@
-
 <p-toolbar>
   <div class="tube">
     <p-sidebar [(visible)]="sidebarVisible" class="sidebar">
       <div class="flex-buttons">
         <div class="admin">
-          <p pButton label="{{loggedUser}}"class="admin-nom p-button-text" ><i style="font-size: 2rem" class="pi pi-user-edit"></i></p>
-
+          <p pButton label="{{loggedUser}}" class="admin-nom p-button-text"><i style="font-size: 2rem"
+              class="pi pi-user-edit"></i></p>
         </div>
-
         <p-divider></p-divider>
-
-
         <button pButton class="button-admin p-button-text" routerLink="/users" (click)="sidebarVisible = false"
-        (click)="selectButton('btn1')" [ngClass]="{'selected': selectedButton === 'btn1'}"><i class="pi pi-user-plus"
-        ></i>Utilisateurs</button>
-
-
-      <button pButton class="button-admin p-button-text" routerLink="/professionals" (click)="sidebarVisible = false"
-      (click)="selectButton('btn2')" [ngClass]="{'selected': selectedButton === 'btn2'}"><i class="pi pi-users"></i>Professionnels</button>
-
-
-
-      <button pButton class="button-admin p-button-text" routerLink="/usabilities" (click)="sidebarVisible = false"
-      (click)="selectButton('btn3')" [ngClass]="{'selected': selectedButton === 'btn3'}"><i class="pi pi-box"></i>Type d'utilisation</button>
-
-
-
-      <button pButton class="button-admin p-button-text" routerLink="/models" (click)="sidebarVisible = false"
-      (click)="selectButton('btn4')" [ngClass]="{'selected': selectedButton === 'btn4'}"><i class="pi pi-mobile"></i>Modèle de produit</button>
-
-      <button pButton class="button-admin p-button-text" routerLink="/owners" (click)="sidebarVisible = false"
-      (click)="selectButton('btn5')" [ngClass]="{'selected': selectedButton === 'btn5'}"><i class="pi pi-credit-card"></i>Propriétaire du produit</button>
-      <p-divider></p-divider>
-
-      <button pButton class="button-admin p-button-text" routerLink="/inventaire" (click)="sidebarVisible = false"
-      (click)="selectButton('btn6')" [ngClass]="{'selected': selectedButton === 'btn6'}" ><i class="pi pi-home"
-        ></i>Inventaire</button>
-    </div>
+          (click)="selectButton('btn1')" [ngClass]="{'selected': selectedButton === 'btn1'}"><i
+            class="pi pi-user-plus"></i>Utilisateurs</button>
+        <button pButton class="button-admin p-button-text" routerLink="/professionals" (click)="sidebarVisible = false"
+          (click)="selectButton('btn2')" [ngClass]="{'selected': selectedButton === 'btn2'}"><i
+            class="pi pi-users"></i>Professionnels</button>
+        <button pButton class="button-admin p-button-text" routerLink="/usabilities" (click)="sidebarVisible = false"
+          (click)="selectButton('btn3')" [ngClass]="{'selected': selectedButton === 'btn3'}"><i
+            class="pi pi-box"></i>Type d'utilisation</button>
+        <button pButton class="button-admin p-button-text" routerLink="/models" (click)="sidebarVisible = false"
+          (click)="selectButton('btn4')" [ngClass]="{'selected': selectedButton === 'btn4'}"><i
+            class="pi pi-mobile"></i>Modèle de produit</button>
+        <button pButton class="button-admin p-button-text" routerLink="/owners" (click)="sidebarVisible = false"
+          (click)="selectButton('btn5')" [ngClass]="{'selected': selectedButton === 'btn5'}"><i
+            class="pi pi-credit-card"></i>Propriétaire du produit</button>
+        <p-divider></p-divider>
+        <button pButton class="button-admin p-button-text" routerLink="/inventaire" (click)="sidebarVisible = false"
+          (click)="selectButton('btn6')" [ngClass]="{'selected': selectedButton === 'btn6'}"><i
+            class="pi pi-home"></i>Inventaire</button>
+      </div>
     </p-sidebar>
-
-    <button pButton class="blue-back" (click)="sidebarVisible = true" [disabled]="notPermission('ROLE_SEARCH_USER')" icon="pi pi-bars"></button>
-
+    <button pButton class="blue-back" (click)="sidebarVisible = true" [disabled]="notPermission('ROLE_SEARCH_USER')"
+      icon="pi pi-bars"></button>
     <!--<img src="assets/logo.png" alt="Logo" class="menu-logo" />-->
-
   </div>
   <div>
     <div class="center tube">
       <p>Inventaire</p>
     </div>
   </div>
-
-    <div>
-      <div class="flex flex-row tube">
-        <p pButton label="{{loggedUser}}" icon="pi pi-user" class="p-button-text"></p>
-        <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="login p-button-text"></button>
-      </div>
-
+  <div>
+    <div class="flex flex-row tube">
+      <p pButton label="{{loggedUser}}" icon="pi pi-user" class="p-button-text"></p>
+      <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()" class="login p-button-text"></button>
+    </div>
   </div>
-
 </p-toolbar>
-

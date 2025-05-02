@@ -1,4 +1,3 @@
-
 <div class="table">
   <p-table #table [paginator]="true" [lazy]="true" [value]="professionals" [rows]="filter.itemsPage"
     [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
@@ -16,19 +15,16 @@
         <th>Name</th>
         <th>Numéro de Matricule</th>
         <th>Actions</th>
-
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-professional>
       <tr>
         <td class="col-valor-content">{{ professional.name }}</td>
         <td class="col-valor-content">{{professional.registration}}</td>
-
         <td>
-          <button class="action" pButton icon="pi pi-trash"
-            tooltipPosition="top" (click)="removeConfirm(professional)"></button>
+          <button class="action" pButton icon="pi pi-trash" tooltipPosition="top"
+            (click)="removeConfirm(professional)"></button>
         </td>
-
       </tr>
     </ng-template>
   </p-table>
@@ -49,8 +45,6 @@
         <label>Matricule</label>
         <input pInputText type="name" name="registration" [(ngModel)]="professional.registration" ngModel required>
       </div>
-
-
       <div class="col-12">
         <button pButton type="submit" label="Enregistrer" (click)="addProfessional(form)">
         </button>
@@ -58,4 +52,3 @@
     </div>
   </form>
 </p-dialog>
-

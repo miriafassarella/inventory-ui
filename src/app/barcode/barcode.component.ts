@@ -1,9 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild, Output} from '@angular/core';
-import { Product } from '../core/model';
+
 import * as JsBarcode from 'jsbarcode';
-import { HomeComponent } from '../home/home.component';
-
-
 
 @Component({
   selector: 'app-barcode',
@@ -11,8 +8,6 @@ import { HomeComponent } from '../home/home.component';
   styleUrls: ['./barcode.component.css']
 })
 export class BarcodeComponent implements AfterViewInit {
-
-
 
   constructor() { }
 
@@ -28,8 +23,4 @@ export class BarcodeComponent implements AfterViewInit {
       });
     }
   }
-
-
-
-
 }

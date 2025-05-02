@@ -17,32 +17,21 @@
             <span class="ml-2">{{ s?.name }}</span>
           </div>
         </ng-template>
-
-
       </p-dropdown>
       <p-dropdown [style]="{ 'margin-left': '3px', 'width': '250px' }" optionValue="id" optionLabel="name"
         [options]="establishments" name="establishmentsSelected" (onChange)="listProductForEstablischment()"
         [(ngModel)]="establishmentsSelected" placeholder="Établissement" [disabled]="!sectorSelected"></p-dropdown>
     </div>
-
     <span class="p-input-icon-left">
       <!--<i class="pi pi-search"></i>
       <input pInputText type="text" placeholder="Buscar...">-->
-  </span>
-    <!--<button pButton label="admin" icon="pi pi-key" class="p-button-text"
-    *ngIf="havePermission('')"></button>-->
-
+    </span>
   </p-toolbar>
-
   <div class="table">
     <p-table #table [value]="products" [paginator]="true" [rows]="filter.itemsPage" [lazy]="true"
       [totalRecords]="totalRegisters" (onLazyLoad)="whenChangingPage($event)">
-
-
-
       <ng-template>
         <div class="flex">
-
         </div>
       </ng-template>
       <ng-template pTemplate="header">
@@ -51,75 +40,60 @@
           <th>Nom du produit</th>
           <th class="col-data-header">Numéro de série</th>
           <th class="col-data-header">Enseignant</th>
-
           <th class="col-valor-header">Actions</th>
-
         </tr>
-
-
-<tr>
-
-  <th>
-      <p-columnFilter [showMenu]="false" field="modelName" matchMode="contains" placeholder="Modèle"></p-columnFilter>
-  </th>
-  <th>
-      <p-columnFilter [showMenu]="false" field="name"  placeholder="Nom"></p-columnFilter>
-  </th>
-  <th>
-    <p-columnFilter [showMenu]="false" field="sNumber" matchMode="contains" placeholder="Numéro de série"></p-columnFilter>
-</th>
-<th>
-  <p-columnFilter [showMenu]="false" field="professionalName" matchMode="contains" placeholder="Enseignant(e)"></p-columnFilter>
-</th>
-
-  <th>
-
-    <p-button  label="Exporter" icon="pi pi-upload" class="pdf" (onClick)="generatePdf(establishmentsSelected!)" severity="secondary"></p-button>
-
-</th>
-
-</tr>
-
-
+        <tr>
+          <th>
+            <p-columnFilter [showMenu]="false" field="modelName" matchMode="contains"
+              placeholder="Modèle"></p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter [showMenu]="false" field="name" placeholder="Nom"></p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter [showMenu]="false" field="sNumber" matchMode="contains"
+              placeholder="Numéro de série"></p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter [showMenu]="false" field="professionalName" matchMode="contains"
+              placeholder="Enseignant(e)"></p-columnFilter>
+          </th>
+          <th>
+            <p-button label="Exporter" icon="pi pi-upload" class="pdf" (onClick)="generatePdf(establishmentsSelected!)"
+              severity="secondary"></p-button>
+          </th>
+        </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product>
-
         <tr>
-
           <td>{{ product?.model?.name }}</td>
           <td>{{ product?.name }}</td>
           <td class="col-data-content">{{ product?.serialNumber }}</td>
           <td class="col-data-content">{{ product?.professional?.name }}</td>
-
-
           <td>
             <button class="action" pButton icon="pi pi-pencil" (click)="showBasicDialog(product.id)"></button>
             <button class="action" pButton icon="pi pi-eye" (click)="showDialog2(product.id)"></button>
             <button class="action" pButton icon="pi pi-trash" tooltipPosition="top"
-          (click)="removeConfirm(product)"></button>
+              (click)="removeConfirm(product)"></button>
           </td>
-
         </tr>
       </ng-template>
-
-
     </p-table>
   </div>
-<p-panel header="Header">
+  <p-panel header="Header">
     <p class="m-0">
-        Lorem ipsum dolor sit amet...
+      Lorem ipsum dolor sit amet...
     </p>
-</p-panel>
-
-
-
-<!--Modal (Bouton +Ajouter)-->
-  <p-dialog header="Ajouter des produits" [(visible)]="visible"(onHide)="closeModal()" [modal]="true" [style]="{ width: '50rem' }">
+  </p-panel>
+  <!--Modal (Bouton +Ajouter)-->
+  <p-dialog header="Ajouter des produits" [(visible)]="visible" (onHide)="closeModal()" [modal]="true"
+    [style]="{ width: '50rem' }">
     <div class="card">
-      <p-dropdown [style]="{ 'margin-right': '3px', 'width': '250px' }" [(ngModel)]="modelSelected" optionValue="id" optionLabel="name" [options]="models" placeholder="Modèle"></p-dropdown>
-      <p-dropdown [style]="{ 'margin-left': '3px', 'width': '250px' }" [(ngModel)]="stockSelected" optionValue="id" optionLabel="name" [options]="stock" placeholder="Stock par secteur"></p-dropdown>
+      <p-dropdown [style]="{ 'margin-right': '3px', 'width': '250px' }" [(ngModel)]="modelSelected" optionValue="id"
+        optionLabel="name" [options]="models" placeholder="Modèle"></p-dropdown>
+      <p-dropdown [style]="{ 'margin-left': '3px', 'width': '250px' }" [(ngModel)]="stockSelected" optionValue="id"
+        optionLabel="name" [options]="stock" placeholder="Stock par secteur"></p-dropdown>
       <h2>Entrez le numéro de série</h2>
-
       <div class="input-container">
         <input pInputText [(ngModel)]="newCode" (keydown.enter)="codeAdd()" placeholder="Numéro de série" />
         <button pButton icon="pi pi-plus" (click)="codeAdd()"></button>
@@ -130,7 +104,6 @@
             <th>#</th>
             <th>Numéro de série</th>
             <th>Modèle</th>
-
             <th>Actions</th>
           </tr>
         </ng-template>
@@ -139,167 +112,133 @@
             <td>{{ index + 1 }}</td>
             <td>{{ AjoutProduct[index].serialNumber}}</td>
             <td>{{ AjoutProduct[index].model.name }}</td>
-
-
             <td>
               <button pButton icon="pi pi-trash" class=" p-button-danger" (click)="codeRemove(index)"></button>
             </td>
           </tr>
         </ng-template>
-
       </p-table>
 
-
     </div>
-
     <ng-template pTemplate="footer">
       <div class="dialog-footer">
         <button pButton label="Envoyer" icon="pi pi-check" (click)="addProduct()" class="p-button-primary"></button>
       </div>
     </ng-template>
   </p-dialog>
-
-   <!--Modal para o botao de modificar produit---------------->
-
-   <p-dialog header="Mofifie le produit {{product.serialNumber}}" [modal]="true" [(visible)]="displayBasic" [style]="{width: '50vw', height: '100vh'}">
-
+  <!--Modal para o botao de modificar produit---------------->
+  <p-dialog header="Mofifie le produit {{product.serialNumber}}" [modal]="true" [(visible)]="displayBasic"
+    [style]="{width: '50vw', height: '100vh'}">
     <form #productForm="ngForm">
       <p><strong>Numéro de série: {{product.serialNumber}}</strong></p>
       <div class="grid">
         <div class="col-12 p-fluid">
           <label>Nom</label>
-          <input name="name" type="text" pInputText [(ngModel)]="product.name" #name name="name" maxlength="15" placeholder="Entrez le nom (maximum 15 caractères)"/>
-
+          <input name="name" type="text" pInputText [(ngModel)]="product.name" #name name="name" maxlength="15"
+            placeholder="Entrez le nom (maximum 15 caractères)" />
         </div>
-
         <div class="col-12 p-fluid">
-
           <label>Proprietaire</label>
           <p-dropdown optionLabel="name" optionValue="id" [options]="owners" placeholder="Sélectionnez"
-          [(ngModel)]="product.owner.id" name="owner"></p-dropdown>
-
+            [(ngModel)]="product.owner.id" name="owner"></p-dropdown>
         </div>
-
         <div class="col-12 p-fluid">
-
           <label>Type d'utilisation</label>
-          <p-dropdown optionLabel="name" optionValue="id" [options]="usabilities"
-          placeholder="Sélectionnez" [(ngModel)]="product.usability.id" name="usability"></p-dropdown>
+          <p-dropdown optionLabel="name" optionValue="id" [options]="usabilities" placeholder="Sélectionnez"
+            [(ngModel)]="product.usability.id" name="usability"></p-dropdown>
         </div>
         <div class="col-12 p-fluid">
           <label>Attribué à:</label>
-          <p-dropdown optionLabel="name" optionValue="id"
-           [options]="professionals" placeholder="Sélectionnez" [(ngModel)]="product.professional.id" name="professional"></p-dropdown>
+          <p-dropdown optionLabel="name" optionValue="id" [options]="professionals" placeholder="Sélectionnez"
+            [(ngModel)]="product.professional.id" name="professional"></p-dropdown>
         </div>
         <div class="col-12 p-fluid">
-            <label>Établissement</label>
-          <p-dropdown optionLabel="name" optionValue="id"
-          [options]="establishmentsAll" [(ngModel)]="product.establishment.id" name="establishment" placeholder="Sélectionnez"></p-dropdown>
+          <label>Établissement</label>
+          <p-dropdown optionLabel="name" optionValue="id" [options]="establishmentsAll"
+            [(ngModel)]="product.establishment.id" name="establishment" placeholder="Sélectionnez"></p-dropdown>
         </div>
       </div>
-
     </form>
     <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (onClick)="updateProduct(productForm)" label="Modifier" styleClass="p-button-text"></p-button>
+      <p-button icon="pi pi-check" (onClick)="updateProduct(productForm)" label="Modifier"
+        styleClass="p-button-text"></p-button>
     </ng-template>
-
-</p-dialog>
-
-<!--Modal para o botao de visualizar o produro-->
-
-
-<p-dialog header="Détails du produit" [(visible)]="displayBasic2" [style]="{width: '70vw'}" [modal]="true">
-  <p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines ">
-    <ng-template pTemplate="header">
-        <tr >
-            <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Modèle</th>
-            <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Nom</th>
-
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-index >
+  </p-dialog>
+  <!--Modal para o botao de visualizar o produro-->
+  <p-dialog header="Détails du produit" [(visible)]="displayBasic2" [style]="{width: '70vw'}" [modal]="true">
+    <p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines ">
+      <ng-template pTemplate="header">
         <tr>
-            <td class="cellule-details">{{index.model.name}}</td>
-            <td class="cellule-details">{{index.name}}</td>
-
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Modèle</th>
+          <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Nom</th>
         </tr>
-    </ng-template>
-</p-table>
-
-<p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
-  <ng-template pTemplate="header">
-      <tr >
-
+      </ng-template>
+      <ng-template pTemplate="body" let-index>
+        <tr>
+          <td class="cellule-details">{{index.model.name}}</td>
+          <td class="cellule-details">{{index.name}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
+      <ng-template pTemplate="header">
+        <tr>
           <th [ngStyle]="{backgroundColor:'var(--surface-50)' }" class="cellule-details">Numéro de série</th>
           <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Date d'achat</th>
-      </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-index >
-      <tr>
-
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-index>
+        <tr>
           <td class="cellule-details">{{index.serialNumber}}</td>
           <td class="cellule-details">{{index.dpurchase}}</td>
-      </tr>
-  </ng-template>
-</p-table>
-
-<p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
-  <ng-template pTemplate="header">
-      <tr>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
+      <ng-template pTemplate="header">
+        <tr>
           <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Type de produit</th>
           <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Type d'utilisation</th>
-
-      </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-index >
-      <tr>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-index>
+        <tr>
           <td class="cellule-details">{{index.model.type.name}}</td>
           <td class="cellule-details">{{index.usability.name}}</td>
-
-      </tr>
-  </ng-template>
-</p-table>
-
-<p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
-  <ng-template pTemplate="header">
-      <tr>
-
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
+      <ng-template pTemplate="header">
+        <tr>
           <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Propriétaire</th>
           <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Atribué à</th>
-      </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-index >
-      <tr>
-
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-index>
+        <tr>
           <td class="cellule-details">{{index.owner.name}}</td>
           <td class="cellule-details">{{index.professional.name}}</td>
-      </tr>
-  </ng-template>
-</p-table>
-
-<p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
-  <ng-template pTemplate="header">
-      <tr>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-table [value]="productArray" styleClass="p-datatable-sm p-datatable-gridlines">
+      <ng-template pTemplate="header">
+        <tr>
           <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Établishment</th>
           <th [ngStyle]="{backgroundColor:'var(--surface-50)'}" class="cellule-details">Secteur</th>
-
-      </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-index >
-      <tr>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-index>
+        <tr>
           <td class="cellule-details">{{index.establishment.name}}</td>
           <td class="cellule-details">{{index.establishment.sector.name}}</td>
-
-      </tr>
-  </ng-template>
-</p-table>
-<ng-template pTemplate="footer">
-  <p-button icon="pi pi-print " label="Générer une étiquette" routerLink="/barcode" styleClass="p-button-text"></p-button>
-</ng-template>
-
-</p-dialog>
+        </tr>
+      </ng-template>
+    </p-table>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-print " label="Générer une étiquette" routerLink="/barcode"
+        styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
 </div>
-
-
-
-
