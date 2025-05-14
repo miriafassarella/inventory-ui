@@ -19,7 +19,7 @@ export class ProductsFilter {
 export class ProductService {
 
   productsUrl = 'http://3.95.208.110:8080/products';
-  private apiUrl = 'http://3.95.208.110:8080/products/pdf';
+  apiUrl = 'http://3.95.208.110:8080/products/pdf';
   criteriaListUrl = 'http://3.95.208.110:8080/products/search';
   sectorsUrl = 'http://3.95.208.110:8080/sectors';
   establishmentsUrl = 'http://3.95.208.110:8080/establishments';

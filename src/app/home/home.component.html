@@ -80,11 +80,6 @@
       </ng-template>
     </p-table>
   </div>
-  <p-panel header="Header">
-    <p class="m-0">
-      Lorem ipsum dolor sit amet...
-    </p>
-  </p-panel>
   <!--Modal (Bouton +Ajouter)-->
   <p-dialog header="Ajouter des produits" [(visible)]="visible" (onHide)="closeModal()" [modal]="true"
     [style]="{ width: '50rem' }">
@@ -127,7 +122,7 @@
     </ng-template>
   </p-dialog>
   <!--Modal para o botao de modificar produit---------------->
-  <p-dialog header="Mofifie le produit {{product.serialNumber}}" [modal]="true" [(visible)]="displayBasic"
+  <p-dialog header="Modifie le produit {{product.serialNumber}}" [modal]="true" [(visible)]="displayBasic"
     [style]="{width: '50vw', height: '100vh'}">
     <form #productForm="ngForm">
       <p><strong>Numéro de série: {{product.serialNumber}}</strong></p>

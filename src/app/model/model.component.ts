@@ -5,6 +5,7 @@ import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api'
 import { ErrorHandlerService } from '../error-handler.service';
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   selector: 'app-model',
   templateUrl: './model.component.html',
@@ -33,6 +34,7 @@ export class ModelComponent implements OnInit {
   ngOnInit(): void {
     this.list();
     this.listTypes();
+
   }
 
   list(page = 0) {

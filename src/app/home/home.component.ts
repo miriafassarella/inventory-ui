@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
   visible: boolean = false;
   displayBasic: boolean = false;
   displayBasic2: boolean = false;
-  stock: any = [{ name: 'Centre de services East-Angus - 099', id: 22 }, { name: 'Centre de services Coatikook - 097', id: 33 }, { name: 'Centre de services Lac-Mégantic - 098', id: 13 }
+  stock: any = [{ name: 'Centre de services Secteur 2 - 099', id: 22 }, { name: 'Centre de services Secteur - 097', id: 33 }, { name: 'Centre de services Secteur 1 - 098', id: 13 }
   ];
 
   constructor(private productService: ProductService,
